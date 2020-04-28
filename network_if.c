@@ -764,10 +764,3 @@ void Network_IF_UnsetMCUMachineState(char cStat)
 {
     CLR_STATUS_BIT(net_state.g_ulStatus, cStat);
 }
-
-//*****************************************************************************
-//
-// Close the Doxygen group.
-//! @}
-//
-//*****************************************************************************

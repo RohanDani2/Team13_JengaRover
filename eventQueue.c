@@ -5,7 +5,7 @@ static QueueHandle_t queueHandle = NULL;
 
 // setup queue by calling freertos lib func, each item 8 bytes
 int createEventMsgQueue(){
-    queueHandle = xQueueCreate( QUEUE_SIZE, sizeof(struct eventMessage) );
+    queueHandle = xQueueCreate( EVENT_QUEUE_SIZE, sizeof(struct eventMessage) );
     return queueHandle != NULL;
 }
 

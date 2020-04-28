@@ -9,10 +9,10 @@ int pTimerFunct()
     Timer_init();
 
     /* Setting up the timer in continuous callback mode that calls the callback
-     * function every 2,000,000 microseconds, or 1 second.
+     * function every 1,000,000 microseconds, or 1 second.
      */
     Timer_Params_init(&params);
-    params.period = 2000000;
+    params.period = 1000000;
     params.periodUnits = Timer_PERIOD_US;
     params.timerMode = Timer_CONTINUOUS_CALLBACK;
     params.timerCallback = pTimerCallback;

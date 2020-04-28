@@ -1,10 +1,3 @@
-/*
- * main_motor_task.h
- *
- *  Created on: Apr 27, 2020
- *      Author: Rohan J. Dani
- */
-
 #ifndef MAIN_MOTOR_TASK_H_
 #define MAIN_MOTOR_TASK_H_
 
@@ -25,8 +18,9 @@
 
 #include <uart_term.h>
 #include <spi_encoder_comm.h>
+#include <publish_timer.h>
 
-static unsigned char speed = 10;
+static unsigned char speed = 30;
 
 void initSPIParams();
 void openSPI();

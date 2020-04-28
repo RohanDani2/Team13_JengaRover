@@ -15,6 +15,8 @@
 #include <uart_term.h>
 #include <pubSubQueue.h>
 
+//int i = 0;
+
 int pTimerFunct();
 void pTimerCallback(Timer_Handle myHandle);
 

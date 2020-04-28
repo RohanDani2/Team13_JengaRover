@@ -13,7 +13,7 @@
 #include <parseJSON.h>
 #include <uart_term.h>
 
-#define PUBLISH_TOPIC0           "/data"
+#define PUBLISH_TOPIC0           "/state"
 
 #define SUBSCRIPTION_TOPIC0      "/sensor"
 #define SUB_TOPIC0_LEN 7

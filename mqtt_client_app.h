@@ -81,7 +81,7 @@
 #define SUBSCRIPTION_TOPIC0      "/sensor"
 
 /* Defining Publish Topic Values                                             */
-#define PUBLISH_TOPIC0           "/data"
+#define PUBLISH_TOPIC0           "/state"
 
 /* Spawn task priority and Task and Thread Stack Size                        */
 #define TASKSTACKSIZE            2048

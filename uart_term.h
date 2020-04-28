@@ -46,5 +46,6 @@ void driveForward(char speed);
 void driveBackward(char speed);
 void rotateLeft(char speed);
 void rotateRight(char speed);
+void motorStop();
 
 #endif // __UART_IF_H__

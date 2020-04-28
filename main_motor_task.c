@@ -29,10 +29,13 @@ void *motorThread(void *arg0) {
 
     //createThread();
     //startEncoderTransmission();
+    int i = 0;
 
     while (1) {
-        driveForward(speed);
-
+        for (i = 0; i < 5; i++) {
+            driveForward(speed);
+        }
+        motorStop();
         //read_encoder(MOTOR1);
         //read_encoder(MOTOR2);
         //read_encoder(MOTOR3);

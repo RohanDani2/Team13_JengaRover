@@ -24,7 +24,7 @@ struct eventMessage
 };
 
 // queue size, in items
-#define QUEUE_SIZE 100
+#define EVENT_QUEUE_SIZE 100
 
 // create queue, return value indicates success or failure
 int createEventMsgQueue();

@@ -39,8 +39,6 @@ int InitTerm(void)
 
     uart = UART_open(CONFIG_UART_0, &uartParams);
     uartHandle = UART_open(CONFIG_UART_1, &uartParams);
-    /* remove uart receive from LPDS dependency */
-
 }
 
 //*****************************************************************************
@@ -337,6 +335,32 @@ void rotateRight(char speed) {
 
 void rotateLeft(char speed) {
 
+    unsigned char forward = 0;
+    unsigned char motor1_address = 128;
+    unsigned char motor2_address = 129;
+    unsigned char motor3_address = 130;
+
+    unsigned char motor1_Mask = ((motor1_address + forward + speed) & 0b01111111);
+    UART_write(uart, &motor1_address, sizeof(motor1_address));
+    UART_write(uart, &forward, sizeof(forward));
+    UART_write(uart, &speed, sizeof(speed));
+    UART_write(uart, &motor1_Mask, sizeof(motor1_Mask));
+
+    unsigned char motor2_Mask = ((motor2_address + forward + speed) & 0b01111111);
+    UART_write(uart, &motor2_address, sizeof(motor2_address));
+    UART_write(uart, &forward, sizeof(forward));
+    UART_write(uart, &speed, sizeof(speed));
+    UART_write(uart, &motor2_Mask, sizeof(motor2_Mask));
+
+    unsigned char motor3_Mask = ((motor3_address + forward + speed) & 0b01111111);
+    UART_write(uart, &motor3_address, sizeof(motor3_address));
+    UART_write(uart, &forward, sizeof(forward));
+    UART_write(uart, &speed, sizeof(speed));
+    UART_write(uart, &motor3_Mask, sizeof(motor3_Mask));
+}
+
+void motorStop() {
+    char speed = 0;
     unsigned char forward = 0;
     unsigned char motor1_address = 128;
     unsigned char motor2_address = 129;

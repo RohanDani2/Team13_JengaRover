@@ -6,9 +6,6 @@ void *mainMqttTask(void *arg0) {
     struct recvMsg r;
     int32_t sequence = 0;
 
-    // track last known state of rover
-    int32_t state = -1;
-
     char publish_topic[MAX_TOPIC_LEN] = { PUBLISH_TOPIC0 };
     char publish_data[MAX_MSG_BUF_SIZE];
 
@@ -20,15 +17,14 @@ void *mainMqttTask(void *arg0) {
                     UART_PRINT("Published message %s\n\r", publish_data);
                 }
                 else{
-                    UART_PRINT("Failed to send msg");
+                    UART_PRINT("Failed to send message");
                 }
             }
             else if(m.type == SUBSCRIBE_TYPE) {
                 // receive topic0 message
              if(strncmp(m.topic, SUBSCRIPTION_TOPIC0, SUB_TOPIC0_LEN) == 0) {
                  if(parseJSON(m.data_buf, &r)){
-                     UART_PRINT("Received state1: %d\n\r", r.state);
-                     state = r.state;
+                     UART_PRINT("Received Sensor Value: %d\n\r");
                  }
                  else {
                      UART_PRINT("Failed to parse state message: \n\r %s\n\r", m.data_buf);
