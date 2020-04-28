@@ -16,12 +16,18 @@
 #define PUBLISH_TYPE 0
 #define SUBSCRIBE_TYPE 1
 
+#define MAX_MSG_BUF_SIZE 350
+
+#define MAX_TOPIC_LEN 15
+
 // struct for msg type, either publish or subscribe
 struct pubSubMsg
 {
     int16_t type;
     int32_t sensorValue;
     char *json_string;
+    char topic[MAX_TOPIC_LEN];
+    char data_buf[MAX_MSG_BUF_SIZE];
 };
 
 // queue size, in items

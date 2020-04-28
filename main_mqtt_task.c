@@ -1,6 +1,6 @@
 #include <main_mqtt_task.h>
 
-void *mainMqttTask(void *arg0){
+void *mainMqttTask(void *arg0) {
 
     struct pubSubMsg m;
     struct recvMsg r;
@@ -13,29 +13,28 @@ void *mainMqttTask(void *arg0){
     char publish_data[MAX_MSG_BUF_SIZE];
 
     while(1){
-        if(readFromPSQueue(&m)){
+        if(readFromPSQueue(&m)) {
             if(m.type == PUBLISH_TYPE){
                 if(sendMQTTJSON(publish_topic, publish_data ,m.sensorValue, sequence)){
                     sequence++;
                     UART_PRINT("Published message %s\n\r", publish_data);
-                }else{
+                }
+                else{
                     UART_PRINT("Failed to send msg");
                 }
             }
             else if(m.type == SUBSCRIBE_TYPE) {
-                if(parseJSON(m.json_string, &r)) {
-                    UART_PRINT("Received state: %d\n\r", r.state);
-                    state = r.state;
-                }else{
-                    UART_PRINT("Failed to parse message: \n\r %s\n\r", m.json_string);
-                }
-            }
-            else {
-                UART_PRINT("Unknown message");
-                dbgFail();
-            }
+                // receive topic0 message
+             if(strncmp(m.topic, SUBSCRIPTION_TOPIC0, SUB_TOPIC0_LEN) == 0) {
+                 if(parseJSON(m.data_buf, &r)){
+                     UART_PRINT("Received state1: %d\n\r", r.state);
+                     state = r.state;
+                 }
+                 else {
+                     UART_PRINT("Failed to parse state message: \n\r %s\n\r", m.data_buf);
+                 }
+             }
+           }
         }
     }
-
-    return NULL;
 }

@@ -43,7 +43,7 @@ extern "C"
 
 
 // max buffer size (TODO maybe change so larger to accomodate max size)
-#define MAX_MSG_BUF_SIZE 1000
+//#define MAX_MSG_BUF_SIZE 1000
 
 
 //*****************************************************************************

@@ -15,9 +15,6 @@
  */
 extern bool gResetApplication;
 
-// static buffer to reduce use of malloc
-static char pubBuff[MAX_MSG_BUF_SIZE];
-
 //*****************************************************************************
 //                          LOCAL DEFINES
 //*****************************************************************************
@@ -132,60 +129,28 @@ void MqttClientCallback(int32_t event,
     {
         MQTTClient_RecvMetaDataCB *recvMetaData =
             (MQTTClient_RecvMetaDataCB *)metaData;
-        uint32_t bufSizeReqd = 0;
-        uint32_t topicOffset;
-        uint32_t payloadOffset;
-
-        struct publishMsgHeader msgHead;
 
         struct pubSubMsg queueElem;
 
-        topicOffset = sizeof(struct publishMsgHeader);
-        payloadOffset = sizeof(struct publishMsgHeader) +
-                        recvMetaData->topLen + 1;
+        if(dataLen < MAX_MSG_BUF_SIZE && recvMetaData->topLen < MAX_TOPIC_LEN){
 
-        msgHead.topicLen = recvMetaData->topLen;
-        msgHead.payLen = dataLen;
-        msgHead.retain = recvMetaData->retain;
-        msgHead.dup = recvMetaData->dup;
-        msgHead.qos = recvMetaData->qos;
-        memcpy((void*) pubBuff, &msgHead, sizeof(struct publishMsgHeader));
+            /* copying the topic name into the buffer                        */
+            memcpy((void*) (queueElem.topic),
+                   (const void*)recvMetaData->topic,
+                   recvMetaData->topLen);
+            memset((void*) (queueElem.topic + recvMetaData->topLen),'\0',1);
 
-        /* copying the topic name into the buffer                        */
-        memcpy((void*) (pubBuff + topicOffset),
-               (const void*)recvMetaData->topic,
-               recvMetaData->topLen);
-        memset((void*) (pubBuff + topicOffset + recvMetaData->topLen),'\0',1);
+            /* copying the payload into the buffer                           */
+            memcpy((void*) (queueElem.data_buf), (const void*) data, dataLen);
+            memset((void*) (queueElem.data_buf + dataLen), '\0', 1);
 
-        /* copying the payload into the buffer                           */
-        memcpy((void*) (pubBuff + payloadOffset), (const void*) data, dataLen);
-        memset((void*) (pubBuff + payloadOffset + dataLen), '\0', 1);
+            queueElem.type = SUBSCRIBE_TYPE;
 
-        APP_PRINT("\n\rMsg Recvd. by client\n\r");
-
-        // put payload in queueElement, make sure can fit
-        char msg[MAX_MSG_BUF_SIZE];
-        int32_t n = snprintf(msg, MAX_MSG_BUF_SIZE, "%s", pubBuff + payloadOffset);
-        if(n > 0 && n < MAX_MSG_BUF_SIZE){
-            queueElem.json_string = msg;
-        }
-
-
-        if(recvMetaData->retain)
-        {
-            APP_PRINT("Retained\n\r");
-        }
-
-        if(recvMetaData->dup)
-        {
-            APP_PRINT("Duplicate\n\r");
-        }
-
-
-        queueElem.type = SUBSCRIBE_TYPE;
-
-        if(!sendMsgToPSQueue(&queueElem)){
-            UART_PRINT("Error sending subscribed message\n\r");
+            if(!sendMsgToPSQueue(&queueElem)){
+                UART_PRINT("Error sending subscribed message\n\r");
+            }
+        }else{
+            UART_PRINT("Error: Topic or payload too large.");
         }
 
 
