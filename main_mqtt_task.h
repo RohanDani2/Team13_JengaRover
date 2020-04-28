@@ -15,7 +15,7 @@
 
 #define PUBLISH_TOPIC0           "/state"
 
-extern int sendMQTTJSON(char* publish_topic, char* publish_data ,int32_t sensorValue, int32_t sequence);
+extern int sendMQTTJSON(char* publish_topic, char* publish_data ,int32_t roverState, int32_t sequence) ;
 
 // main task to handle publish/subscribe
 void *mainMqttTask(void *arg0);

@@ -26,7 +26,7 @@ int pTimerFunct() {
 void pTimerCallback(Timer_Handle myHandle)
 {
 
-    struct pubSubMsg m;
+/*    struct pubSubMsg m;
 
     m.type = PUBLISH_TYPE;
     // generate simulated sensor data
@@ -35,5 +35,5 @@ void pTimerCallback(Timer_Handle myHandle)
     //write message indicating timer expired event
     if(!sendMsgToPSQueue(&m)){
         dbgFail();
-    }
+    }*/
 }

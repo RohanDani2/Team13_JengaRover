@@ -1,34 +1,8 @@
 #include <main_motor_task.h>
 
-/*void *testThread(void *arg0) {
-    struct MotorMessage msg;
-    int nextMove;
-    int encoder_val;
-    char encoderChosen;
-
-    while(1)
-    {
-       if (readFromMotorQueue(&msg)) {
-            if (msg.type == 'c')
-            {
-                nextMove = (int)msg.val;
-                movementThroughQueue(nextMove, speed);
-            }
-
-            if (msg.type == 'e')
-            {
-                encoder_val = (int)msg.val;
-                encoderChosen = msg.encoder;
-                chooseEncoder(encoder_val, encoderChosen);
-            }
-       }
-    }
-}*/
-
 int mTimerFunct() {
-    Timer_Handle timer1;
     Timer_Params params;
-
+    Timer_Handle timer1;
     /* Call driver init functions */
     Timer_init();
 
@@ -36,7 +10,7 @@ int mTimerFunct() {
      * function every 1,000,000 microseconds, or 1 second.
      */
     Timer_Params_init(&params);
-    params.period = 1000000;
+    params.period = 2000000;
     params.periodUnits = Timer_PERIOD_US;
     params.timerMode = Timer_CONTINUOUS_CALLBACK;
     params.timerCallback = mTimerCallback;
@@ -50,13 +24,16 @@ int mTimerFunct() {
 
 // when timer expires, queue event to indicate that a message should be published
 void mTimerCallback(Timer_Handle myHandle) {
+    m.type = PUBLISH_TYPE;
+    //write message indicating timer expired event
+    if(!sendMsgToPSQueue(&m)){
+        dbgFail();
+    }
 }
 
 void *motorThread(void *arg0) {
-
-    //startEncoderTransmission();
-    struct pubSubMsg m;
     struct recvMsg r;
+    m.roverState = SearchingForJenga;
     while (1) {
         if(readFromPSQueue(&m)) {
             if(m.type == SUBSCRIBE_TYPE) {
@@ -72,10 +49,6 @@ void *motorThread(void *arg0) {
                 }
             }
         }
-
-        //read_encoder(MOTOR1);
-        //read_encoder(MOTOR2);
-        //read_encoder(MOTOR3);
     }
 }
 
@@ -85,10 +58,7 @@ void move_algorithm(struct recvMsg r) {
         case 1:
             if (r.Jenga) {
                 if (r.X == 0) {
-/*                    int timeVal = Timer_getCount(timer0);
-                    while (timeVal != 3) {
-                        driveForward(speed);
-                    }*/
+                    //driveForward(speed);
                 }
             }
         break;

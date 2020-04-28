@@ -10,7 +10,7 @@ void *mainMqttTask(void *arg0) {
     while(1){
         if(readFromPSQueue(&m)) {
             if(m.type == PUBLISH_TYPE){
-                if(sendMQTTJSON(publish_topic, publish_data ,m.sensorValue, sequence)){
+                if(sendMQTTJSON(publish_topic, publish_data ,m.roverState, sequence)){
                     sequence++;
                     UART_PRINT("Published message %s\n\r", publish_data);
                 }

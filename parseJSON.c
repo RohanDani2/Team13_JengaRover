@@ -21,12 +21,12 @@ int addStringChecksum(unsigned char *string, size_t length){
 
 //------------------------------------------------------------------------
 //------------------------------------------------------------------------
-int generateChecksum(int32_t sensor, int32_t seq){
+int generateChecksum(int32_t roverState, int32_t seq) {
     char tok_string[MAX_TOK_LENGTH];
     int32_t chk = 0;
-    chk += addStringChecksum("sensor", strlen("sensor"));
+    chk += addStringChecksum("RoverState", strlen("RoverState"));
     chk += addStringChecksum("seq", strlen("seq"));
-    int32_t s1 = snprintf(tok_string, MAX_TOK_LENGTH, "%d", sensor);
+    int32_t s1 = snprintf(tok_string, MAX_TOK_LENGTH, "%d", roverState);
     chk += addStringChecksum(tok_string, strlen(tok_string));
     int32_t s2 = snprintf(tok_string, MAX_TOK_LENGTH, "%d", seq);
     chk += addStringChecksum(tok_string, strlen(tok_string));

@@ -102,10 +102,11 @@ void * MqttClientThread(void * pvParameters)
 // attempt to send JSON formatted message over mqtt
 // return 1 on success and 0 on failure
 //*****************************************************************************
-int sendMQTTJSON(char* publish_topic, char* publish_data ,int32_t sensorValue, int32_t sequence){
+int sendMQTTJSON(char* publish_topic, char* publish_data ,int32_t roverState, int32_t sequence) {
 
     // make sure can fit in bounds of buffer
-    int32_t n = snprintf(publish_data, MAX_MSG_BUF_SIZE, "{\"sensor\": %d, \"seq\":%d, \"checksum\": %d}", sensorValue, sequence, generateChecksum(sensorValue, sequence));
+    int32_t n = snprintf(publish_data, MAX_MSG_BUF_SIZE, "{\"RoverState\": %d, \"seq\":%d, \"checksum\": %d}",
+                         roverState, sequence, generateChecksum(roverState, sequence));
     if(n < 0 || n > MAX_MSG_BUF_SIZE){
         return 0;
     }

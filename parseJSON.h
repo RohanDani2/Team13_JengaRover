@@ -39,7 +39,7 @@ int addStringChecksum(unsigned char *string, size_t length);
 /* generate checksum of message with sensor and sequence data
  * return the checksum
 */
-int generateChecksum(int32_t sensor, int32_t seq);
+int generateChecksum(int32_t roverState, int32_t seq);
 
 /* attempt to parse JSON string, verify checksum in process
  * return 1 on succesful parse, 0 on failed parse

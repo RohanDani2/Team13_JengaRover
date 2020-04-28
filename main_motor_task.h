@@ -21,6 +21,7 @@
 #include "ti_drivers_config.h"
 
 #include <uart_term.h>
+#include <debug.h>
 #include <spi_encoder_comm.h>
 #include <parseJSON.h>
 #include <pubSubQueue.h>
@@ -28,12 +29,10 @@
 #define SUBSCRIPTION_TOPIC0      "/sensor"
 #define SUB_TOPIC0_LEN 7
 
+struct pubSubMsg m;
 static unsigned char speed = 5;
 
-void initSPIParams();
-void openSPI();
 void *motorThread(void *arg0);
-void *testThread(void *arg0);
 int mTimerFunct();
 void mTimerCallback(Timer_Handle myHandle);
 void move_algorithm(struct recvMsg r);

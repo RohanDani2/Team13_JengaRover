@@ -130,7 +130,7 @@ void Mqtt_start();
 int32_t Mqtt_IF_Connect();
 int32_t MqttServer_start();
 int32_t MqttClient_start();
-int sendMQTTJSON(char* publish_topic, char* publish_data ,int32_t sensorValue, int32_t sequence);
+int sendMQTTJSON(char* publish_topic, char* publish_data ,int32_t roverState, int32_t sequence);
 int32_t MQTT_SendMsgToQueue(struct eventMessage *queueElement);
 int createMotorThread();
 

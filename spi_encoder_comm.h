@@ -44,6 +44,7 @@ typedef enum
     MOTOR3 = 130
 } motorAddress;
 
+void initSPIParams();
 void read_encoder(motorAddress motor_Address);
 void clear_encoder(motorAddress motor_Address);
 void initEncoder(motorAddress motor_Address);
