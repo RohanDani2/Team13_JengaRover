@@ -19,14 +19,19 @@
 #include <uart_term.h>
 #include <spi_encoder_comm.h>
 #include <publish_timer.h>
+#include <parseJSON.h>
 
-static unsigned char speed = 30;
+#define SUBSCRIPTION_TOPIC0      "/sensor"
+#define SUB_TOPIC0_LEN 7
+
+static unsigned char speed = 5;
 
 void initSPIParams();
 void openSPI();
-void createThread();
 void *motorThread(void *arg0);
 void *testThread(void *arg0);
+int mTimerFunct();
+void move_algorithm(struct recvMsg r);
 
 
 

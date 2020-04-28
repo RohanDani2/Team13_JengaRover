@@ -3,9 +3,7 @@
 void *mainMqttTask(void *arg0) {
 
     struct pubSubMsg m;
-    struct recvMsg r;
     int32_t sequence = 0;
-
     char publish_topic[MAX_TOPIC_LEN] = { PUBLISH_TOPIC0 };
     char publish_data[MAX_MSG_BUF_SIZE];
 
@@ -20,17 +18,6 @@ void *mainMqttTask(void *arg0) {
                     UART_PRINT("Failed to send message");
                 }
             }
-            else if(m.type == SUBSCRIBE_TYPE) {
-                // receive topic0 message
-             if(strncmp(m.topic, SUBSCRIPTION_TOPIC0, SUB_TOPIC0_LEN) == 0) {
-                 if(parseJSON(m.data_buf, &r)){
-                     UART_PRINT("Received Sensor Value: %d\n\r");
-                 }
-                 else {
-                     UART_PRINT("Failed to parse state message: \n\r %s\n\r", m.data_buf);
-                 }
-             }
-           }
         }
     }
 }

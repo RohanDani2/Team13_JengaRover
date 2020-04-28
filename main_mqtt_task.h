@@ -15,9 +15,6 @@
 
 #define PUBLISH_TOPIC0           "/state"
 
-#define SUBSCRIPTION_TOPIC0      "/sensor"
-#define SUB_TOPIC0_LEN 7
-
 extern int sendMQTTJSON(char* publish_topic, char* publish_data ,int32_t sensorValue, int32_t sequence);
 
 // main task to handle publish/subscribe

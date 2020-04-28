@@ -1,8 +1,6 @@
 #include <publish_timer.h>
 
-int pTimerFunct()
-{
-    Timer_Handle timer0;
+int pTimerFunct() {
     Timer_Params params;
 
     /* Call driver init functions */

@@ -16,7 +16,12 @@
 #define STATE_MSG_TOKENS 6
 
 struct recvMsg{
-    int32_t state;
+    int32_t ID;
+    int32_t X;
+    int32_t Y;
+    int32_t ObjWidth;
+    int32_t Jenga;
+    int32_t armState;
     int32_t seq;
     int32_t checksum;
 };
