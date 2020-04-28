@@ -11,6 +11,7 @@
 #include <pubSubQueue.h>
 #include <publish_timer.h>
 #include <parseJSON.h>
+#include <uart_term.h>
 
 #define PUBLISH_TOPIC0           "/data"
 #define MAX_TOPIC_LEN 256

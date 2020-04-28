@@ -21,10 +21,8 @@
 
 static unsigned char speed = 10;
 
-void initGPIOParams();
 void initSPIParams();
 void openSPI();
-void openUART();
 void createThread();
 void *motorThread(void *arg0);
 void *testThread(void *arg0);

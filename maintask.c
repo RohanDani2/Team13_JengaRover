@@ -32,7 +32,6 @@ void *motorThread(void *arg0) {
 
     while (1) {
         driveForward(speed);
-        //keyBoardMovement(input, speed);
 
         //read_encoder(MOTOR1);
         //read_encoder(MOTOR2);

@@ -21,14 +21,16 @@ void *mainMqttTask(void *arg0){
                 }else{
                     UART_PRINT("Failed to send msg");
                 }
-            }else if(m.type == SUBSCRIBE_TYPE){
-                if(parseJSON(m.json_string, &r)){
+            }
+            else if(m.type == SUBSCRIBE_TYPE) {
+                if(parseJSON(m.json_string, &r)) {
                     UART_PRINT("Received state: %d\n\r", r.state);
                     state = r.state;
                 }else{
                     UART_PRINT("Failed to parse message: \n\r %s\n\r", m.json_string);
                 }
-            }else{
+            }
+            else {
                 UART_PRINT("Unknown message");
                 dbgFail();
             }

@@ -18,7 +18,7 @@ uint32_t gUiConnFlag = 0;
 const char *topic[SUBSCRIPTION_TOPIC_COUNT] =
 { SUBSCRIPTION_TOPIC0};
 const char qos[SUBSCRIPTION_TOPIC_COUNT] =
-{ MQTT_QOS_2, MQTT_QOS_2, MQTT_QOS_2, MQTT_QOS_2 };
+{ MQTT_QOS_2};
 
 // Client ID
 // If ClientId isn't set, the MAC address of the device will be copied into
@@ -68,24 +68,6 @@ int32_t MQTT_SendMsgToQueue(struct eventMessage *queueElement){
         return(0);
     }
     return(-1);
-}
-
-//*****************************************************************************
-//
-//! Application startup display on UART
-//!
-//! \param  none
-//!
-//! \return none
-//!
-//*****************************************************************************
-static void DisplayBanner(char * AppName)
-{
-    UART_PRINT("\n\n\n\r");
-    UART_PRINT("\t\t *************************************************\n\r");
-    UART_PRINT("\t\t    CC32xx %s Application       \n\r", AppName);
-    UART_PRINT("\t\t *************************************************\n\r");
-    UART_PRINT("\n\n\n\r");
 }
 
 void * MqttClientThread(void * pvParameters)
@@ -156,7 +138,6 @@ void * MqttClient(void *pvParameters)
 {
     struct eventMessage queueElemRecv;
     long lRetVal = -1;
-    char *tmpBuff;
 
     /*Initializing Client and Subscribing to the Broker.                     */
     if(gApConnectionState >= 0)
@@ -225,9 +206,6 @@ int32_t Mqtt_IF_Connect()
         strncpy(SSID_Remote_Name, SSID_NAME, Str_Length);
     }
 
-    /*Display Application Banner                                             */
-    DisplayBanner(APPLICATION_NAME);
-
     /*Reset The state of the machine                                         */
     Network_IF_ResetMCUStateMachine();
 
@@ -274,8 +252,6 @@ void Mqtt_start()
     pthread_attr_t pAttrs;
     struct sched_param priParam;
     int32_t retc = 0;
-    mq_attr attr;
-    unsigned mode = 0;
 
     // initialize queue
     if(!createEventMsgQueue()){
@@ -605,65 +581,6 @@ int32_t SetClientIdNamefromMacAddress()
     return(ret);
 }
 
-//*****************************************************************************
-//!
-//! Utility function which Display the app banner
-//!
-//! \param[in] appName     -  holds the application name.
-//! \param[in] appVersion  -  holds the application version.
-//!
-//! \return none.
-//!
-//*****************************************************************************
-
-int32_t DisplayAppBanner(char* appName,
-                         char* appVersion)
-{
-    int32_t ret = 0;
-    uint8_t macAddress[SL_MAC_ADDR_LEN];
-    uint16_t macAddressLen = SL_MAC_ADDR_LEN;
-    uint16_t ConfigSize = 0;
-    uint8_t ConfigOpt = SL_DEVICE_GENERAL_VERSION;
-    SlDeviceVersion_t ver = {0};
-
-    ConfigSize = sizeof(SlDeviceVersion_t);
-
-    /*Print device version info. */
-    ret =
-        sl_DeviceGet(SL_DEVICE_GENERAL, &ConfigOpt, &ConfigSize,
-                     (uint8_t*)(&ver));
-
-    /*Print device Mac address */
-    ret |= (int32_t)sl_NetCfgGet(SL_NETCFG_MAC_ADDRESS_GET, 0, &macAddressLen,
-                       &macAddress[0]);
-
-    UART_PRINT("\n\r\t");
-    printBorder('=', 44);
-    UART_PRINT("\n\r\t   %s Example Ver: %s",appName, appVersion);
-    UART_PRINT("\n\r\t");
-    printBorder('=', 44);
-    UART_PRINT("\n\r\n\r\t CHIP: 0x%x",ver.ChipId);
-    UART_PRINT("\n\r\t MAC:  %d.%d.%d.%d",ver.FwVersion[0],ver.FwVersion[1],
-               ver.FwVersion[2],
-               ver.FwVersion[3]);
-    UART_PRINT("\n\r\t PHY:  %d.%d.%d.%d",ver.PhyVersion[0],ver.PhyVersion[1],
-               ver.PhyVersion[2],
-               ver.PhyVersion[3]);
-    UART_PRINT("\n\r\t NWP:  %d.%d.%d.%d",ver.NwpVersion[0],ver.NwpVersion[1],
-               ver.NwpVersion[2],
-               ver.NwpVersion[3]);
-    UART_PRINT("\n\r\t ROM:  %d",ver.RomVersion);
-    UART_PRINT("\n\r\t HOST: %s", SL_DRIVER_VERSION);
-    UART_PRINT("\n\r\t MAC address: %02x:%02x:%02x:%02x:%02x:%02x", macAddress[0],
-               macAddress[1], macAddress[2], macAddress[3], macAddress[4],
-               macAddress[5]);
-    UART_PRINT("\n\r\n\r\t");
-    printBorder('=', 44);
-    UART_PRINT("\n\r\n\r");
-
-    return(ret);
-}
-
 int createMotorThread() {
    pthread_t           thread0;
    pthread_attr_t      attrs;
@@ -743,8 +660,6 @@ void mainThread(void * args)
         dbgFail();
     }
 
-    /*Output device information to the UART terminal */
-    retc = DisplayAppBanner(APPLICATION_NAME, APPLICATION_VERSION);
     /*Set the ClientId with its own mac address */
     retc |= SetClientIdNamefromMacAddress();
 
@@ -794,13 +709,6 @@ void mainThread(void * args)
     while(1)
     {
 
-
-        /* ------------------------------------------------------------------------------
-         * ------------------------------------------------------------------------------
-         * TODO - change this
-         * ------------------------------------------------------------------------------
-         * ------------------------------------------------------------------------------
-         */
         /*Wait for init to be completed!!!                                   */
         while(gInitState != 0)
         {
@@ -809,12 +717,6 @@ void mainThread(void * args)
         }
         UART_PRINT(".\r\n");
 
-        /* ------------------------------------------------------------------------------
-         * ------------------------------------------------------------------------------
-         * TODO - change this
-         * ------------------------------------------------------------------------------
-         * ------------------------------------------------------------------------------
-         */
         while(gResetApplication == false)
         {
             ;
