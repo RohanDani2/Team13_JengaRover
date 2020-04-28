@@ -10,21 +10,20 @@ GEN_OPTS__FLAG :=
 GEN_CMDS__FLAG := 
 
 ORDERED_OBJS += \
-"./SPItoMotorEncoder.obj" \
-"./UartToMotorController.obj" \
 "./client_cbs.obj" \
 "./syscfg/ti_drivers_net_wifi_config.obj" \
 "./syscfg/ti_drivers_config.obj" \
 "./debug.obj" \
 "./eventQueue.obj" \
 "./main_freertos.obj" \
+"./main_motor_task.obj" \
 "./main_mqtt_task.obj" \
-"./maintask.obj" \
 "./mqtt_client_app.obj" \
 "./network_if.obj" \
 "./parseJSON.obj" \
 "./pubSubQueue.obj" \
 "./publish_timer.obj" \
+"./spi_encoder_comm.obj" \
 "./uart_term.obj" \
 "../CC3220SF_LAUNCHXL_FREERTOS.cmd" \
 $(GEN_CMDS__FLAG) \
@@ -185,8 +184,8 @@ Team13_JengaRover.bin: $(EXE_OUTPUTS)
 # Other Targets
 clean:
 	-$(RM) $(GEN_MISC_FILES__QUOTED)$(BIN_OUTPUTS__QUOTED)$(GEN_FILES__QUOTED)$(EXE_OUTPUTS__QUOTED)
-	-$(RM) "SPItoMotorEncoder.obj" "UartToMotorController.obj" "client_cbs.obj" "syscfg\ti_drivers_net_wifi_config.obj" "syscfg\ti_drivers_config.obj" "debug.obj" "eventQueue.obj" "main_freertos.obj" "main_mqtt_task.obj" "maintask.obj" "mqtt_client_app.obj" "network_if.obj" "parseJSON.obj" "pubSubQueue.obj" "publish_timer.obj" "uart_term.obj" 
-	-$(RM) "SPItoMotorEncoder.d" "UartToMotorController.d" "client_cbs.d" "syscfg\ti_drivers_net_wifi_config.d" "syscfg\ti_drivers_config.d" "debug.d" "eventQueue.d" "main_freertos.d" "main_mqtt_task.d" "maintask.d" "mqtt_client_app.d" "network_if.d" "parseJSON.d" "pubSubQueue.d" "publish_timer.d" "uart_term.d" 
+	-$(RM) "client_cbs.obj" "syscfg\ti_drivers_net_wifi_config.obj" "syscfg\ti_drivers_config.obj" "debug.obj" "eventQueue.obj" "main_freertos.obj" "main_motor_task.obj" "main_mqtt_task.obj" "mqtt_client_app.obj" "network_if.obj" "parseJSON.obj" "pubSubQueue.obj" "publish_timer.obj" "spi_encoder_comm.obj" "uart_term.obj" 
+	-$(RM) "client_cbs.d" "syscfg\ti_drivers_net_wifi_config.d" "syscfg\ti_drivers_config.d" "debug.d" "eventQueue.d" "main_freertos.d" "main_motor_task.d" "main_mqtt_task.d" "mqtt_client_app.d" "network_if.d" "parseJSON.d" "pubSubQueue.d" "publish_timer.d" "spi_encoder_comm.d" "uart_term.d" 
 	-$(RMDIR) $(GEN_MISC_DIRS__QUOTED)
 	-@echo 'Finished clean'
 	-@echo ' '

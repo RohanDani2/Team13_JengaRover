@@ -37,7 +37,7 @@
 #include <eventQueue.h>
 #include <publish_timer.h>
 #include <main_mqtt_task.h>
-#include <maintask.h>
+#include <main_motor_task.h>
 
 //*****************************************************************************
 //                          LOCAL DEFINES

@@ -1,12 +1,12 @@
 /*
- * SPItoMotorEncoder.h
+ * spi_encoder_comm.h
  *
- *  Created on: Feb 26, 2020
+ *  Created on: Apr 27, 2020
  *      Author: Rohan J. Dani
  */
 
-#ifndef SPITOMOTORENCODER_H_
-#define SPITOMOTORENCODER_H_
+#ifndef SPI_ENCODER_COMM_H_
+#define SPI_ENCODER_COMM_H_
 
 #include <FreeRTOS.h>
 #include <task.h>
@@ -20,7 +20,7 @@
 /* Driver configuration */
 #include "ti_drivers_config.h"
 
-#include "UartToMotorController.h"
+#include <uart_term.h>
 
 SPI_Handle      masterSpi;
 SPI_Params      spiParams;
@@ -54,4 +54,4 @@ void choose_Register(motorAddress motor_Address);
 void chooseEncoder(int encoder_val, char encoderChosen);
 
 
-#endif /* SPITOMOTORENCODER_H_ */
+#endif /* SPI_ENCODER_COMM_H_ */

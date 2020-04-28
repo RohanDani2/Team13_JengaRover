@@ -1,5 +1,12 @@
-#ifndef MAINTASK_H_
-#define MAINTASK_H_
+/*
+ * main_motor_task.h
+ *
+ *  Created on: Apr 27, 2020
+ *      Author: Rohan J. Dani
+ */
+
+#ifndef MAIN_MOTOR_TASK_H_
+#define MAIN_MOTOR_TASK_H_
 
 /* RTOS header files */
 #include <FreeRTOS.h>
@@ -17,7 +24,7 @@
 #include <ti/display/Display.h>
 
 #include <uart_term.h>
-#include <SPItoMotorEncoder.h>
+#include <spi_encoder_comm.h>
 
 static unsigned char speed = 10;
 
@@ -28,4 +35,5 @@ void *motorThread(void *arg0);
 void *testThread(void *arg0);
 
 
-#endif /* MAINTASK_H_ */
+
+#endif /* MAIN_MOTOR_TASK_H_ */

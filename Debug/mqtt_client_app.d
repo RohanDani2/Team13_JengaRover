@@ -99,12 +99,10 @@ mqtt_client_app.obj: C:/Users/Rohan\ J.\ Dani/CCS_workspace/Team13_JengaRover/ma
 mqtt_client_app.obj: C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/include/stdlib.h
 mqtt_client_app.obj: C:/Users/Rohan\ J.\ Dani/CCS_workspace/Team13_JengaRover/parseJSON.h
 mqtt_client_app.obj: C:/Users/Rohan\ J.\ Dani/CCS_workspace/Team13_JengaRover/jsmn.h
-mqtt_client_app.obj: C:/Users/Rohan\ J.\ Dani/CCS_workspace/Team13_JengaRover/maintask.h
+mqtt_client_app.obj: C:/Users/Rohan\ J.\ Dani/CCS_workspace/Team13_JengaRover/main_motor_task.h
 mqtt_client_app.obj: C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/include/stdlib.h
 mqtt_client_app.obj: C:/ti/simplelink_cc32xx_sdk_3_30_01_02/source/ti/display/Display.h
-mqtt_client_app.obj: C:/Users/Rohan\ J.\ Dani/CCS_workspace/Team13_JengaRover/SPItoMotorEncoder.h
-mqtt_client_app.obj: C:/Users/Rohan\ J.\ Dani/CCS_workspace/Team13_JengaRover/UartToMotorController.h
-mqtt_client_app.obj: C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/include/strings.h
+mqtt_client_app.obj: C:/Users/Rohan\ J.\ Dani/CCS_workspace/Team13_JengaRover/spi_encoder_comm.h
 
 ../mqtt_client_app.c: 
 C:/Users/Rohan\ J.\ Dani/CCS_workspace/Team13_JengaRover/mqtt_client_app.h: 
@@ -205,9 +203,7 @@ C:/Users/Rohan\ J.\ Dani/CCS_workspace/Team13_JengaRover/main_mqtt_task.h:
 C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/include/stdlib.h: 
 C:/Users/Rohan\ J.\ Dani/CCS_workspace/Team13_JengaRover/parseJSON.h: 
 C:/Users/Rohan\ J.\ Dani/CCS_workspace/Team13_JengaRover/jsmn.h: 
-C:/Users/Rohan\ J.\ Dani/CCS_workspace/Team13_JengaRover/maintask.h: 
+C:/Users/Rohan\ J.\ Dani/CCS_workspace/Team13_JengaRover/main_motor_task.h: 
 C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/include/stdlib.h: 
 C:/ti/simplelink_cc32xx_sdk_3_30_01_02/source/ti/display/Display.h: 
-C:/Users/Rohan\ J.\ Dani/CCS_workspace/Team13_JengaRover/SPItoMotorEncoder.h: 
-C:/Users/Rohan\ J.\ Dani/CCS_workspace/Team13_JengaRover/UartToMotorController.h: 
-C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/include/strings.h: 
+C:/Users/Rohan\ J.\ Dani/CCS_workspace/Team13_JengaRover/spi_encoder_comm.h: 

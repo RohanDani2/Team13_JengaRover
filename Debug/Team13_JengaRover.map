@@ -1,7 +1,7 @@
 ******************************************************************************
                   TI ARM Linker PC v18.12.4                    
 ******************************************************************************
->> Linked Mon Apr 27 21:34:38 2020
+>> Linked Mon Apr 27 21:40:50 2020
 
 OUTPUT FILE NAME:   <Team13_JengaRover.out>
 ENTRY POINT SYMBOL: "resetISR"  address: 01017dc5
@@ -759,7 +759,7 @@ section   page    origin      length       input sections
                   01017e7c    00000014                         : SPI.oem4 (.text:SPI_Params_init)
                   01017e90    00000014     slnetsock_release.a : slnetsock.oem4 (.text:SlNetSock_sdsClrAll)
                   01017ea4    00000014     mqtt_release.a : client_core.oem4 (.text:ack1WlRmfree)
-                  01017eb8    00000014     maintask.obj (.text:motorThread)
+                  01017eb8    00000014     main_motor_task.obj (.text:motorThread)
                   01017ecc    00000014     freertos_builds_CC3220SF_LAUNCHXL_release_ccs.lib : tasks.obj (.text:prvDeleteTCB)
                   01017ee0    00000014                                                       : pthread.obj (.text:pthread_attr_setstacksize)
                   01017ef4    00000014                                                       : pthread_mutex.obj (.text:pthread_mutex_lock)
@@ -1059,7 +1059,7 @@ section   page    origin      length       input sections
                   2002ff78    00000010                                                       : heap_4.obj (.data)
                   2002ff88    00000010     mqtt_client_app.obj (.data)
                   2002ff98    0000000d     mqtt_client_app.obj (.data:ClientId)
-                  2002ffa5    00000001     maintask.obj (.data)
+                  2002ffa5    00000001     main_motor_task.obj (.data)
                   2002ffa6    00000001     slnetsock_release.a : slnetsock.oem4 (.data)
                   2002ffa7    00000001     --HOLE--
                   2002ffa8    0000000c     freertos_builds_CC3220SF_LAUNCHXL_release_ccs.lib : pthread_mutex.obj (.data:defAttrs)
@@ -1111,7 +1111,7 @@ MODULE SUMMARY
        pubSubQueue.obj              164     0         4      
        publish_timer.obj            126     0         0      
        main_freertos.obj            116     0         0      
-       maintask.obj                 20      0         1      
+       main_motor_task.obj          20      0         1      
     +--+----------------------------+-------+---------+---------+
        Total:                       12338   395       1366   
                                                              

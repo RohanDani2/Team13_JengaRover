@@ -50,23 +50,6 @@ maintask.obj: C:/Users/Rohan\ J.\ Dani/CCS_workspace/Team13_JengaRover/SPItoMoto
 maintask.obj: C:/ti/simplelink_cc32xx_sdk_3_30_01_02/source/ti/posix/ccs/unistd.h
 maintask.obj: C:/ti/simplelink_cc32xx_sdk_3_30_01_02/source/ti/drivers/SPI.h
 maintask.obj: C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/include/stdbool.h
-maintask.obj: C:/Users/Rohan\ J.\ Dani/CCS_workspace/Team13_JengaRover/UartToMotorController.h
-maintask.obj: C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/include/strings.h
-maintask.obj: C:/Users/Rohan\ J.\ Dani/CCS_workspace/Team13_JengaRover/client_cbs.h
-maintask.obj: C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/include/stdlib.h
-maintask.obj: C:/ti/simplelink_cc32xx_sdk_3_30_01_02/source/ti/posix/ccs/mqueue.h
-maintask.obj: C:/ti/simplelink_cc32xx_sdk_3_30_01_02/source/ti/net/mqtt/mqttserver.h
-maintask.obj: C:/ti/simplelink_cc32xx_sdk_3_30_01_02/source/ti/net/mqtt/mqttclient.h
-maintask.obj: C:/ti/simplelink_cc32xx_sdk_3_30_01_02/source/ti/net/mqtt/common/mqtt_common.h
-maintask.obj: C:/ti/simplelink_cc32xx_sdk_3_30_01_02/source/ti/net/slnetsock.h
-maintask.obj: C:/ti/simplelink_cc32xx_sdk_3_30_01_02/source/ti/posix/ccs/sys/time.h
-maintask.obj: C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/include/../include/sys/_timeval.h
-maintask.obj: C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/include/stdlib.h
-maintask.obj: C:/Users/Rohan\ J.\ Dani/CCS_workspace/Team13_JengaRover/pubSubQueue.h
-maintask.obj: C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/include/inttypes.h
-maintask.obj: C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/include/machine/_inttypes.h
-maintask.obj: C:/FreeRTOSv10.2.1_191129/FreeRTOS/Source/include/queue.h
-maintask.obj: C:/ti/simplelink_cc32xx_sdk_3_30_01_02/source/ti/drivers/dpl/HwiP.h
 
 ../maintask.c: 
 C:/Users/Rohan\ J.\ Dani/CCS_workspace/Team13_JengaRover/maintask.h: 
@@ -118,20 +101,3 @@ C:/Users/Rohan\ J.\ Dani/CCS_workspace/Team13_JengaRover/SPItoMotorEncoder.h:
 C:/ti/simplelink_cc32xx_sdk_3_30_01_02/source/ti/posix/ccs/unistd.h: 
 C:/ti/simplelink_cc32xx_sdk_3_30_01_02/source/ti/drivers/SPI.h: 
 C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/include/stdbool.h: 
-C:/Users/Rohan\ J.\ Dani/CCS_workspace/Team13_JengaRover/UartToMotorController.h: 
-C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/include/strings.h: 
-C:/Users/Rohan\ J.\ Dani/CCS_workspace/Team13_JengaRover/client_cbs.h: 
-C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/include/stdlib.h: 
-C:/ti/simplelink_cc32xx_sdk_3_30_01_02/source/ti/posix/ccs/mqueue.h: 
-C:/ti/simplelink_cc32xx_sdk_3_30_01_02/source/ti/net/mqtt/mqttserver.h: 
-C:/ti/simplelink_cc32xx_sdk_3_30_01_02/source/ti/net/mqtt/mqttclient.h: 
-C:/ti/simplelink_cc32xx_sdk_3_30_01_02/source/ti/net/mqtt/common/mqtt_common.h: 
-C:/ti/simplelink_cc32xx_sdk_3_30_01_02/source/ti/net/slnetsock.h: 
-C:/ti/simplelink_cc32xx_sdk_3_30_01_02/source/ti/posix/ccs/sys/time.h: 
-C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/include/../include/sys/_timeval.h: 
-C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/include/stdlib.h: 
-C:/Users/Rohan\ J.\ Dani/CCS_workspace/Team13_JengaRover/pubSubQueue.h: 
-C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/include/inttypes.h: 
-C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/include/machine/_inttypes.h: 
-C:/FreeRTOSv10.2.1_191129/FreeRTOS/Source/include/queue.h: 
-C:/ti/simplelink_cc32xx_sdk_3_30_01_02/source/ti/drivers/dpl/HwiP.h: 

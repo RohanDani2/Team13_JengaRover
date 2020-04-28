@@ -5,7 +5,7 @@
  *      Author: Rohan J. Dani
  */
 
-#include "SPItoMotorEncoder.h"
+#include "spi_encoder_comm.h"
 
 /* global buffers to handle the read and write from spi */
 uint8_t register_tx_buff[0x2] = {0};

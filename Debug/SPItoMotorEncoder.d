@@ -36,34 +36,10 @@ SPItoMotorEncoder.obj: C:/ti/simplelink_cc32xx_sdk_3_30_01_02/source/ti/drivers/
 SPItoMotorEncoder.obj: C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/include/stdbool.h
 SPItoMotorEncoder.obj: C:/Users/Rohan\ J.\ Dani/CCS_workspace/Team13_JengaRover/Debug/syscfg/ti_drivers_config.h
 SPItoMotorEncoder.obj: C:/ti/simplelink_cc32xx_sdk_3_30_01_02/source/ti/devices/DeviceFamily.h
-SPItoMotorEncoder.obj: ../UartToMotorController.h
-SPItoMotorEncoder.obj: C:/ti/simplelink_cc32xx_sdk_3_30_01_02/source/ti/drivers/UART.h
-SPItoMotorEncoder.obj: C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/include/strings.h
-SPItoMotorEncoder.obj: C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/include/string.h
-SPItoMotorEncoder.obj: C:/Users/Rohan\ J.\ Dani/CCS_workspace/Team13_JengaRover/client_cbs.h
-SPItoMotorEncoder.obj: C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/include/stdlib.h
-SPItoMotorEncoder.obj: C:/ti/simplelink_cc32xx_sdk_3_30_01_02/source/ti/posix/ccs/pthread.h
-SPItoMotorEncoder.obj: C:/ti/simplelink_cc32xx_sdk_3_30_01_02/source/ti/posix/ccs/time.h
-SPItoMotorEncoder.obj: C:/ti/simplelink_cc32xx_sdk_3_30_01_02/source/ti/posix/ccs/signal.h
-SPItoMotorEncoder.obj: C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/include/../include/signal.h
-SPItoMotorEncoder.obj: C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/include/../include/sys/timespec.h
-SPItoMotorEncoder.obj: C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/include/sys/_timespec.h
-SPItoMotorEncoder.obj: C:/ti/simplelink_cc32xx_sdk_3_30_01_02/source/ti/posix/ccs/sched.h
-SPItoMotorEncoder.obj: C:/ti/simplelink_cc32xx_sdk_3_30_01_02/source/ti/posix/ccs/mqueue.h
 SPItoMotorEncoder.obj: C:/Users/Rohan\ J.\ Dani/CCS_workspace/Team13_JengaRover/uart_term.h
 SPItoMotorEncoder.obj: C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/include/stdlib.h
-SPItoMotorEncoder.obj: C:/ti/simplelink_cc32xx_sdk_3_30_01_02/source/ti/net/mqtt/mqttserver.h
-SPItoMotorEncoder.obj: C:/ti/simplelink_cc32xx_sdk_3_30_01_02/source/ti/net/mqtt/mqttclient.h
-SPItoMotorEncoder.obj: C:/ti/simplelink_cc32xx_sdk_3_30_01_02/source/ti/net/mqtt/common/mqtt_common.h
-SPItoMotorEncoder.obj: C:/ti/simplelink_cc32xx_sdk_3_30_01_02/source/ti/net/slnetsock.h
-SPItoMotorEncoder.obj: C:/ti/simplelink_cc32xx_sdk_3_30_01_02/source/ti/posix/ccs/sys/time.h
-SPItoMotorEncoder.obj: C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/include/../include/sys/_timeval.h
-SPItoMotorEncoder.obj: C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/include/stdlib.h
-SPItoMotorEncoder.obj: C:/Users/Rohan\ J.\ Dani/CCS_workspace/Team13_JengaRover/pubSubQueue.h
-SPItoMotorEncoder.obj: C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/include/inttypes.h
-SPItoMotorEncoder.obj: C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/include/machine/_inttypes.h
-SPItoMotorEncoder.obj: C:/FreeRTOSv10.2.1_191129/FreeRTOS/Source/include/queue.h
-SPItoMotorEncoder.obj: C:/ti/simplelink_cc32xx_sdk_3_30_01_02/source/ti/drivers/dpl/HwiP.h
+SPItoMotorEncoder.obj: C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/include/string.h
+SPItoMotorEncoder.obj: C:/ti/simplelink_cc32xx_sdk_3_30_01_02/source/ti/drivers/UART.h
 
 ../SPItoMotorEncoder.c: 
 ../SPItoMotorEncoder.h: 
@@ -101,31 +77,7 @@ C:/ti/simplelink_cc32xx_sdk_3_30_01_02/source/ti/drivers/SPI.h:
 C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/include/stdbool.h: 
 C:/Users/Rohan\ J.\ Dani/CCS_workspace/Team13_JengaRover/Debug/syscfg/ti_drivers_config.h: 
 C:/ti/simplelink_cc32xx_sdk_3_30_01_02/source/ti/devices/DeviceFamily.h: 
-../UartToMotorController.h: 
-C:/ti/simplelink_cc32xx_sdk_3_30_01_02/source/ti/drivers/UART.h: 
-C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/include/strings.h: 
-C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/include/string.h: 
-C:/Users/Rohan\ J.\ Dani/CCS_workspace/Team13_JengaRover/client_cbs.h: 
-C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/include/stdlib.h: 
-C:/ti/simplelink_cc32xx_sdk_3_30_01_02/source/ti/posix/ccs/pthread.h: 
-C:/ti/simplelink_cc32xx_sdk_3_30_01_02/source/ti/posix/ccs/time.h: 
-C:/ti/simplelink_cc32xx_sdk_3_30_01_02/source/ti/posix/ccs/signal.h: 
-C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/include/../include/signal.h: 
-C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/include/../include/sys/timespec.h: 
-C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/include/sys/_timespec.h: 
-C:/ti/simplelink_cc32xx_sdk_3_30_01_02/source/ti/posix/ccs/sched.h: 
-C:/ti/simplelink_cc32xx_sdk_3_30_01_02/source/ti/posix/ccs/mqueue.h: 
 C:/Users/Rohan\ J.\ Dani/CCS_workspace/Team13_JengaRover/uart_term.h: 
 C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/include/stdlib.h: 
-C:/ti/simplelink_cc32xx_sdk_3_30_01_02/source/ti/net/mqtt/mqttserver.h: 
-C:/ti/simplelink_cc32xx_sdk_3_30_01_02/source/ti/net/mqtt/mqttclient.h: 
-C:/ti/simplelink_cc32xx_sdk_3_30_01_02/source/ti/net/mqtt/common/mqtt_common.h: 
-C:/ti/simplelink_cc32xx_sdk_3_30_01_02/source/ti/net/slnetsock.h: 
-C:/ti/simplelink_cc32xx_sdk_3_30_01_02/source/ti/posix/ccs/sys/time.h: 
-C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/include/../include/sys/_timeval.h: 
-C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/include/stdlib.h: 
-C:/Users/Rohan\ J.\ Dani/CCS_workspace/Team13_JengaRover/pubSubQueue.h: 
-C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/include/inttypes.h: 
-C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/include/machine/_inttypes.h: 
-C:/FreeRTOSv10.2.1_191129/FreeRTOS/Source/include/queue.h: 
-C:/ti/simplelink_cc32xx_sdk_3_30_01_02/source/ti/drivers/dpl/HwiP.h: 
+C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/include/string.h: 
+C:/ti/simplelink_cc32xx_sdk_3_30_01_02/source/ti/drivers/UART.h: 
