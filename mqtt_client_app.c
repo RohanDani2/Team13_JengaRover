@@ -702,8 +702,12 @@ void mainThread(void * args)
         UART_PRINT("failed mqtt task");
     }
 
-    if(!createMotorThread()){
+    if(!createMotorThread()) {
         UART_PRINT("failed motor task");
+    }
+
+    if(!mTimerFunct()) {
+        UART_PRINT("failed timer 1 creation");
     }
 
     while(1)

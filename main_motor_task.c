@@ -26,6 +26,7 @@
 }*/
 
 int mTimerFunct() {
+    Timer_Handle timer1;
     Timer_Params params;
 
     /* Call driver init functions */
@@ -38,13 +39,17 @@ int mTimerFunct() {
     params.period = 1000000;
     params.periodUnits = Timer_PERIOD_US;
     params.timerMode = Timer_CONTINUOUS_CALLBACK;
-    params.timerCallback = pTimerCallback;
+    params.timerCallback = mTimerCallback;
 
-    timer0 = Timer_open(CONFIG_TIMER_0, &params);
-    if (timer0 == NULL || Timer_start(timer0) == Timer_STATUS_ERROR){
+    timer1 = Timer_open(CONFIG_TIMER_1, &params);
+    if (timer1 == NULL || Timer_start(timer1) == Timer_STATUS_ERROR){
         return 0;
     }
     return 1;
+}
+
+// when timer expires, queue event to indicate that a message should be published
+void mTimerCallback(Timer_Handle myHandle) {
 }
 
 void *motorThread(void *arg0) {

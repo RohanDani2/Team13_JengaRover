@@ -89,7 +89,6 @@ extern "C" {
 
 #define CONFIG_TIMER_0              0
 #define CONFIG_TIMER_1              1
-#define CONFIG_TIMER_2              2
 
 /*
  *  ======== UART ========

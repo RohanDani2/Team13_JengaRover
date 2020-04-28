@@ -17,7 +17,6 @@ var GPIO3 = GPIO.addInstance();
 var Timer = scripting.addModule("/ti/drivers/Timer");
 var Timer1 = Timer.addInstance();
 var Timer2 = Timer.addInstance();
-var Timer3 = Timer.addInstance();
 var Watchdog = scripting.addModule("/ti/drivers/Watchdog");
 var Watchdog1 = Watchdog.addInstance();
 var GPIO4 = GPIO.addInstance();
@@ -69,16 +68,12 @@ Timer1.timer.$name = "MyTimer1";
 Timer1.timer.$assign = "Timer0";
 // Name - The C/C++ identifier used in applications as the index parameter passed to Timer runtime APIs
 Timer2.$name = "CONFIG_TIMER_1";
+// Timer Type
+Timer2.timerType = "32 Bits";
 // Name
 Timer2.timer.$name = "MyTimer1";
 // Use Peripheral
 Timer2.timer.$assign = "Timer1";
-// Name - The C/C++ identifier used in applications as the index parameter passed to Timer runtime APIs
-Timer3.$name = "CONFIG_TIMER_2";
-// Name
-Timer3.timer.$name = "MyTimer1";
-// Use Peripheral
-Timer3.timer.$assign = "Timer1";
 // Name - The C/C++ identifier used in applications as the index parameter passed to Watchdog runtime APIs
 Watchdog1.$name = "CONFIG_WATCHDOG_0";
 // Name

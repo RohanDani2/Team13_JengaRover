@@ -338,7 +338,7 @@ const uint_least8_t SPI_count = CONFIG_SPI_COUNT;
 #include <ti/devices/cc32xx/inc/hw_ints.h>
 #include <ti/drivers/timer/TimerCC32XX.h>
 
-#define CONFIG_TIMER_COUNT 3
+#define CONFIG_TIMER_COUNT 2
 
 /*
  *  ======== timerCC32XXObjects ========
@@ -359,15 +359,8 @@ const TimerCC32XX_HWAttrs timerCC32XXHWAttrs[CONFIG_TIMER_COUNT] = {
     /* CONFIG_TIMER_1 */
     {
         .baseAddress = TIMERA1_BASE,
-        .subTimer    = TimerCC32XX_timer16A,
+        .subTimer    = TimerCC32XX_timer32,
         .intNum      = INT_TIMERA1A,
-        .intPriority = (~0)
-    },
-    /* CONFIG_TIMER_2 */
-    {
-        .baseAddress = TIMERA1_BASE,
-        .subTimer    = TimerCC32XX_timer16B,
-        .intNum      = INT_TIMERA1B,
         .intPriority = (~0)
     },
 };
@@ -387,12 +380,6 @@ const Timer_Config Timer_config[CONFIG_TIMER_COUNT] = {
         .fxnTablePtr = &TimerCC32XX_fxnTable,
         .object      = &timerCC32XXObjects[CONFIG_TIMER_1],
         .hwAttrs     = &timerCC32XXHWAttrs[CONFIG_TIMER_1]
-    },
-    /* CONFIG_TIMER_2 */
-    {
-        .fxnTablePtr = &TimerCC32XX_fxnTable,
-        .object      = &timerCC32XXObjects[CONFIG_TIMER_2],
-        .hwAttrs     = &timerCC32XXHWAttrs[CONFIG_TIMER_2]
     },
 };
 

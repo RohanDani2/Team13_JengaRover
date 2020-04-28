@@ -15,11 +15,15 @@
 /* Driver Header files */
 #include <ti/drivers/GPIO.h>
 #include <ti/display/Display.h>
+#include <ti/drivers/Timer.h>
+
+/* Driver configuration */
+#include "ti_drivers_config.h"
 
 #include <uart_term.h>
 #include <spi_encoder_comm.h>
-#include <publish_timer.h>
 #include <parseJSON.h>
+#include <pubSubQueue.h>
 
 #define SUBSCRIPTION_TOPIC0      "/sensor"
 #define SUB_TOPIC0_LEN 7
@@ -31,6 +35,7 @@ void openSPI();
 void *motorThread(void *arg0);
 void *testThread(void *arg0);
 int mTimerFunct();
+void mTimerCallback(Timer_Handle myHandle);
 void move_algorithm(struct recvMsg r);
 
 
