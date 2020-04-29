@@ -28,13 +28,15 @@
 #include <pubSubQueue.h>
 #include <stats.h>
 
+static unsigned char speed = 20;
+
+#define ENCODERTHREADSTACKSIZE (4096)
+#define SPAWN_TASK_PRIORITY      9
+
 #define SUBSCRIPTION_TOPIC0      "/sensor"
 #define SUB_TOPIC0_LEN 7
 
 struct pubSubMsg m;
-static unsigned char speed = 20;
-
-#define ENCODERTHREADSTACKSIZE (4096)
 
 struct motorTimer {
     int timePassed;
@@ -43,12 +45,12 @@ struct motorTimer {
 
 void *motorThread(void *arg0);
 void *encoderThread(void *arg0);
-void *encoderQueueThread(void *arg0);
-int createEncoderQueueThread();
 int createEncoderThread();
 int mTimerFunct();
 void mTimerCallback(Timer_Handle myHandle);
 void move_algorithm(struct recvMsg r);
+int startEncoderQueueTask();
+void *encoderRead(void *arg0);
 
 
 

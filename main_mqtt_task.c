@@ -22,7 +22,7 @@ void *mainMqttTask(void *arg0) {
                     UART_PRINT("Failed to send message");
                 }
             }
-            else if(m.type == PUBLISH_STAT){
+            else if(m.type == PUBLISH_STAT) {
                 int32_t pub_attempt = getPublishAttempt();
                 int32_t sub_received = getSubscribeReceived();
                 int32_t sub_not_received = getSubscribeShouldReceived();

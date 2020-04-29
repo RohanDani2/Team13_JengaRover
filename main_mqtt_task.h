@@ -13,9 +13,12 @@
 #include <parseJSON.h>
 #include <uart_term.h>
 #include <stats.h>
+#include <spi_encoder_comm.h>
 
 #define PUBLISH_TOPIC0           "/state"
 #define PUBLISH_TOPIC1           "/statistics"
+
+struct pubSubMsg m;
 
 extern int sendMQTTJSON(char* publish_topic, char* publish_data ,int32_t roverState, int32_t sequence) ;
 extern int sendStatMQTTJSON(char* publish_topic1,

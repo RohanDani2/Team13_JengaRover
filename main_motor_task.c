@@ -35,26 +35,25 @@ void mTimerCallback(Timer_Handle myHandle) {
 }
 
 void *motorThread(void *arg0) {
+    initSPIParams();
+    startEncoderTransmission();
+
     if(!createEncoderThread()) {
         UART_PRINT("Encoder Thread Failed\n\r");
     }
 
-    if(!createEncoderQueueThread()) {
-        UART_PRINT("Encoder Thread Failed\n\r");
+    if(!startEncoderQueueTask()) {
+        UART_PRINT("Encoder Read Thread Failed\n\r");
     }
-    initSPIParams();
-    startEncoderTransmission();
 
     struct recvMsg r;
 
-    m.roverState = SearchingForJenga;
+    //m.roverState = SearchingForJenga;
     while (1) {
         rotateRight(speed);
-
         if(readFromPSQueue(&m)) {
             if(m.type == SUBSCRIBE_TYPE) {
-            // receive topic0 message
-                if(strncmp(m.topic, SUBSCRIPTION_TOPIC0, SUB_TOPIC0_LEN) == 0) {
+                if (strncmp(m.topic, SUBSCRIPTION_TOPIC0, SUB_TOPIC0_LEN) == 0) {
                     if(parseJSON(m.data_buf, &r)){
                         updateSubscribeReceied();
                         updateSubscribeShouldReceivedState1(r.seq);
@@ -65,21 +64,6 @@ void *motorThread(void *arg0) {
                     }
                 }
             }
-        }
-        move_algorithm(r);
-    }
-}
-
-void *encoderQueueThread(void *arg0) {
-    struct MotorMessage msg;
-    int encoder_val;
-    char encoderChosen;
-
-    while (1) {
-        if(readFromQueue(&msg)) {
-            encoder_val = (int)msg.val;
-            encoderChosen = msg.encoder;
-            chooseEncoder(encoder_val, encoderChosen);
         }
     }
 }
@@ -92,31 +76,33 @@ void *encoderThread(void *arg0) {
     }
 }
 
-int createEncoderQueueThread() {
-    pthread_t           thread0;
-    pthread_attr_t      attrs;
-    struct sched_param  priParam;
-    int                 retc;
-    int                 detachState;
+void *encoderRead(void *arg0) {
+    struct MotorMessage msg;
+    int encoder_val;
+    char encoderChosen;
 
-    pthread_attr_init(&attrs);
+    while (1) {
+        if(readFromQueue(&msg)) {
+             encoder_val = (int)msg.val;
+             encoderChosen = msg.encoder;
+             chooseEncoder(encoder_val, encoderChosen);
+        }
+    }
+}
 
-    detachState = PTHREAD_CREATE_DETACHED;
-    retc = pthread_attr_setdetachstate(&attrs, detachState);
-    if (retc != 0) {
-        return 0;
-    }
-    retc |= pthread_attr_setstacksize(&attrs, ENCODERTHREADSTACKSIZE);
-    if (retc != 0) {
-        return 0;
-    }
-    priParam.sched_priority = 1;
-    pthread_attr_setschedparam(&attrs, &priParam);
-    retc = pthread_create(&thread0, &attrs, encoderQueueThread, NULL);
-    if (retc != 0) {
-        return 0;
-    }
-    return 1;
+int startEncoderQueueTask() {
+    return xTaskCreate( encoderRead, "encoder queue",configPOSIX_STACK_SIZE*4, NULL,SPAWN_TASK_PRIORITY, NULL) == pdPASS;
+}
+
+void move_algorithm(struct recvMsg r) {
+/*    switch(r.ID) {
+        case 1:
+            if (r.Jenga) {
+                if (r.X == 0) {
+                }
+            }
+        break;
+    }*/
 }
 
 int createEncoderThread() {
@@ -144,15 +130,4 @@ int createEncoderThread() {
         return 0;
     }
     return 1;
-}
-
-void move_algorithm(struct recvMsg r) {
-    switch(r.ID) {
-        case 1:
-            if (r.Jenga) {
-                if (r.X == 0) {
-                }
-            }
-        break;
-    }
 }

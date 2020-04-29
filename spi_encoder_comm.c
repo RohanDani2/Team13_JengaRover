@@ -13,7 +13,7 @@ void initSPIParams() {
     spiParams.transferMode = SPI_MODE_CALLBACK;
     spiParams.transferCallbackFxn = encoderCallback;
     spiParams.dataSize = 8;
-    spiParams.bitRate = 500000;
+    spiParams.bitRate = 250000;
 
     masterSpi = SPI_open(CONFIG_SPI_0, &spiParams);
     if (masterSpi == NULL) {
