@@ -14,7 +14,8 @@
 #include <ti/drivers/dpl/HwiP.h>
 
 #define PUBLISH_TYPE 0
-#define SUBSCRIBE_TYPE 1
+#define PUBLISH_STAT 1
+#define SUBSCRIBE_TYPE 2
 
 #define SearchingForJenga 0
 #define AvoidingObstacle 1

@@ -25,14 +25,16 @@ int pTimerFunct() {
 // when timer expires, queue event to indicate that a message should be published
 void pTimerCallback(Timer_Handle myHandle)
 {
-/*    struct pubSubMsg m;
+    dbgOutputLoc(DLOC_ENTER_ISR);
+    struct pubSubMsg m;
 
-    m.type = PUBLISH_TYPE;
-    // generate simulated sensor data
-    m.sensorValue = rand() % 50;
+    m.type = PUBLISH_STAT;
 
+    dbgOutputLoc(DLOC_BEFORE_ISR_QUEUE);
     //write message indicating timer expired event
     if(!sendMsgToPSQueue(&m)){
         dbgFail();
-    }*/
+    }
+    dbgOutputLoc(DLOC_AFTER_ISR_QUEUE);
+    dbgOutputLoc(DLOC_LEAVE_ISR);
 }

@@ -120,6 +120,30 @@ int sendMQTTJSON(char* publish_topic, char* publish_data ,int32_t roverState, in
     return ret == 0;
 };
 
+int sendStatMQTTJSON(char* publish_topic1, char* publish_data, int32_t pub_attempt, int32_t sub_received, int32_t sub_not_received, int32_t ID) {
+    int32_t n = snprintf(publish_data, MAX_MSG_BUF_SIZE,
+                             "{\"ID\": %d, "
+                             "\"publish_attempt\": %d, "
+                             "\"subscribe_received\": %d, "
+                             "\"subscribe_shouldReceived\": %d,  "
+                             "\"checksum\": %d}",
+                             ID,
+                             pub_attempt,
+                             sub_received,
+                             sub_not_received,
+                             generateStatsChecksum(pub_attempt, sub_received, sub_not_received, ID));
+    if(n < 0 || n >= MAX_MSG_BUF_SIZE){
+        return 0;
+    }
+    //send publish message
+    int ret = MQTTClient_publish(gMqttClient, (char*) publish_topic1, strlen(
+                              (char*)publish_topic1),
+                          (char*)publish_data,
+                          strlen((char*) publish_data), MQTT_QOS_2 |
+                          ((RETAIN_ENABLE) ? MQTT_PUBLISH_RETAIN : 0));
+    return ret == 0;
+};
+
 //*****************************************************************************
 //
 //! Task implementing MQTT Server plus client bridge

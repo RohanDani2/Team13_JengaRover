@@ -82,6 +82,7 @@
 
 /* Defining Publish Topic Values                                             */
 #define PUBLISH_TOPIC0           "/state"
+#define PUBLISH_TOPIC1           "/statistics"
 
 /* Spawn task priority and Task and Thread Stack Size                        */
 #define TASKSTACKSIZE            2048
@@ -131,6 +132,11 @@ int32_t Mqtt_IF_Connect();
 int32_t MqttServer_start();
 int32_t MqttClient_start();
 int sendMQTTJSON(char* publish_topic, char* publish_data ,int32_t roverState, int32_t sequence);
+int sendStatMQTTJSON(char* publish_topic1,
+                            char* publish_data,
+                            int32_t pub_attempt,
+                            int32_t sub_received,
+                            int32_t sub_not_received, int32_t ID);
 int32_t MQTT_SendMsgToQueue(struct eventMessage *queueElement);
 int createMotorThread();
 

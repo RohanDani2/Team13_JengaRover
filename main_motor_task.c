@@ -43,6 +43,8 @@ void *motorThread(void *arg0) {
             // receive topic0 message
                 if(strncmp(m.topic, SUBSCRIPTION_TOPIC0, SUB_TOPIC0_LEN) == 0) {
                     if(parseJSON(m.data_buf, &r)){
+                        updateSubscribeReceied();
+                        updateSubscribeShouldReceivedState1(r.seq);
                         UART_PRINT("Received Sensor Value\n\r");
                     }
                     else {

@@ -25,6 +25,7 @@
 #include <spi_encoder_comm.h>
 #include <parseJSON.h>
 #include <pubSubQueue.h>
+#include <stats.h>
 
 #define SUBSCRIPTION_TOPIC0      "/sensor"
 #define SUB_TOPIC0_LEN 7

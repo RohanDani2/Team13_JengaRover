@@ -39,6 +39,32 @@ int generateChecksum(int32_t roverState, int32_t seq) {
 
 //------------------------------------------------------------------------
 //------------------------------------------------------------------------
+
+int generateStatsChecksum(int32_t publish_attempt, int32_t subscribe_received, int32_t subscribe_shouldReceived, int32_t ID) {
+    char tok_string[MAX_TOK_LENGTH];
+    int32_t chk = 0;
+    chk += addStringChecksum("ID", strlen("ID"));
+    chk += addStringChecksum("publish_attempt", strlen("publish_attempt"));
+    chk += addStringChecksum("subscribe_received", strlen("subscribe_received"));
+    chk += addStringChecksum("subscribe_shouldReceived", strlen("subscribe_shouldReceived"));
+    int32_t s0 = snprintf(tok_string, MAX_TOK_LENGTH, "%d", ID);
+    chk += addStringChecksum(tok_string, strlen(tok_string));
+    int32_t s1 = snprintf(tok_string, MAX_TOK_LENGTH, "%d", publish_attempt);
+    chk += addStringChecksum(tok_string, strlen(tok_string));
+    int32_t s2 = snprintf(tok_string, MAX_TOK_LENGTH, "%d", subscribe_received);
+    chk += addStringChecksum(tok_string, strlen(tok_string));
+    int32_t s3 = snprintf(tok_string, MAX_TOK_LENGTH, "%d", subscribe_shouldReceived);
+    chk += addStringChecksum(tok_string, strlen(tok_string));
+
+    // if bad checksum just return -1, when checksum calculated will lead to failure
+    if(s1 < MAX_TOK_LENGTH && s1 >= 0 && s2 < MAX_TOK_LENGTH && s2 >= 0 && s3 < MAX_TOK_LENGTH && s3 >= 0){
+        return chk;
+    }
+    return -1;
+};
+
+//------------------------------------------------------------------------
+//------------------------------------------------------------------------
 int parseJSON(char* s, struct recvMsg *m){
     jsmn_parser p;
     jsmntok_t t[MAX_TOKENS];

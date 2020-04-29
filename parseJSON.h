@@ -39,11 +39,13 @@ int addStringChecksum(unsigned char *string, size_t length);
 /* generate checksum of message with sensor and sequence data
  * return the checksum
 */
+int generateStatsChecksum(int32_t publish_attempt, int32_t subscribe_received, int32_t subscribe_shouldReceived, int32_t ID);
 int generateChecksum(int32_t roverState, int32_t seq);
 
 /* attempt to parse JSON string, verify checksum in process
  * return 1 on succesful parse, 0 on failed parse
  */
 int parseJSON(char* s, struct recvMsg *m);
+
 
 #endif /* PARSEJSON_H_ */

@@ -26,6 +26,7 @@ C_SRCS += \
 ../pubSubQueue.c \
 ../publish_timer.c \
 ../spi_encoder_comm.c \
+../stats.c \
 ../uart_term.c 
 
 GEN_FILES += \
@@ -50,6 +51,7 @@ C_DEPS += \
 ./pubSubQueue.d \
 ./publish_timer.d \
 ./spi_encoder_comm.d \
+./stats.d \
 ./uart_term.d 
 
 OBJS += \
@@ -67,6 +69,7 @@ OBJS += \
 ./pubSubQueue.obj \
 ./publish_timer.obj \
 ./spi_encoder_comm.obj \
+./stats.obj \
 ./uart_term.obj 
 
 GEN_MISC_FILES += \
@@ -91,6 +94,7 @@ OBJS__QUOTED += \
 "pubSubQueue.obj" \
 "publish_timer.obj" \
 "spi_encoder_comm.obj" \
+"stats.obj" \
 "uart_term.obj" 
 
 GEN_MISC_FILES__QUOTED += \
@@ -112,6 +116,7 @@ C_DEPS__QUOTED += \
 "pubSubQueue.d" \
 "publish_timer.d" \
 "spi_encoder_comm.d" \
+"stats.d" \
 "uart_term.d" 
 
 GEN_FILES__QUOTED += \
@@ -133,6 +138,7 @@ C_SRCS__QUOTED += \
 "../pubSubQueue.c" \
 "../publish_timer.c" \
 "../spi_encoder_comm.c" \
+"../stats.c" \
 "../uart_term.c" 
 
 SYSCFG_SRCS__QUOTED += \
