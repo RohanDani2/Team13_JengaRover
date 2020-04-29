@@ -5,6 +5,7 @@ void *mainMqttTask(void *arg0) {
     struct pubSubMsg m;
     int32_t sequence = 0;
     int32_t ID = 0;
+
     char publish_topic0[MAX_TOPIC_LEN] = { PUBLISH_TOPIC0 };
     char publish_topic1[MAX_TOPIC_LEN] = { PUBLISH_TOPIC1 };
     char publish_data[MAX_MSG_BUF_SIZE];

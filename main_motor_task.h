@@ -43,6 +43,9 @@ struct motorTimer {
 
 void *motorThread(void *arg0);
 void *encoderThread(void *arg0);
+void *encoderQueueThread(void *arg0);
+int createEncoderQueueThread();
+int createEncoderThread();
 int mTimerFunct();
 void mTimerCallback(Timer_Handle myHandle);
 void move_algorithm(struct recvMsg r);

@@ -265,15 +265,15 @@ void putch(char ch)
 }
 
 void chooseEncoder(int encoder_val, char encoderChosen) {
-    if (encoderChosen == '1') {
-        int c;
-        c = snprintf(buffer, 100, "Encoder 1: %d \r\n", encoder_val);
-        UART_write(uartHandle, buffer, c);
-    }
-    else if(encoderChosen == '2')
-    {
+    if (encoderChosen == '2') {
         int c;
         c = snprintf(buffer, 100, "Encoder 2: %d \r\n", encoder_val);
+        UART_write(uartHandle, buffer, c);
+    }
+    else if(encoderChosen == '1')
+    {
+        int c;
+        c = snprintf(buffer, 100, "Encoder 1: %d \r\n", encoder_val);
         UART_write(uartHandle, buffer, c);
     }
     else if(encoderChosen == '3')

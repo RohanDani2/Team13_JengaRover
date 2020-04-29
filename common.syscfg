@@ -137,11 +137,11 @@ GPIO10.gpioPin.$assign = "boosterpack.5"; // P61
 // Name - The C/C++ identifier used in applications as the index parameter passed to GPIO runtime APIs
 GPIO11.$name = "SPI_Encoder2";
 // Assign pin
-GPIO11.gpioPin.$assign = "boosterpack.18"; // P08
+GPIO11.gpioPin.$assign = "boosterpack.13"; // P21
 // Name - The C/C++ identifier used in applications as the index parameter passed to GPIO runtime APIs
 GPIO12.$name = "SPI_Encoder3";
 // Assign pin
-GPIO12.gpioPin.$assign = "boosterpack.13"; // P21
+GPIO12.gpioPin.$assign = "boosterpack.18"; // P08
 // Suggest solution
 GPIO1.gpioPin.$suggestSolution = "64";
 // Suggest solution

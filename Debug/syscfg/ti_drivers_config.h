@@ -56,9 +56,9 @@ extern "C" {
 #define CONFIG_GPIO_PIN_7           8
 /* P61 */
 #define SPI_Encoder1                9
-/* P08 */
-#define SPI_Encoder2                10
 /* P21 */
+#define SPI_Encoder2                10
+/* P08 */
 #define SPI_Encoder3                11
 
 /* LEDs are active high */

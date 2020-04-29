@@ -2,24 +2,6 @@
 
 static struct motorTimer timeVal = {0,false};
 
-void *encoderThread(void *arg0) {
-    struct MotorMessage msg;
-    int encoder_val;
-    char encoderChosen;
-
-    while (1) {
-         read_encoder(MOTOR1);
-         read_encoder(MOTOR2);
-         read_encoder(MOTOR3);
-
-         if(readFromQueue(&msg)) {
-             encoder_val = (int)msg.val;
-             encoderChosen = msg.encoder;
-             chooseEncoder(encoder_val, encoderChosen);
-         }
-    }
-}
-
 int mTimerFunct() {
     Timer_Handle timer1;
     Timer_Params params;
@@ -53,6 +35,13 @@ void mTimerCallback(Timer_Handle myHandle) {
 }
 
 void *motorThread(void *arg0) {
+    if(!createEncoderThread()) {
+        UART_PRINT("Encoder Thread Failed\n\r");
+    }
+
+    if(!createEncoderQueueThread()) {
+        UART_PRINT("Encoder Thread Failed\n\r");
+    }
     initSPIParams();
     startEncoderTransmission();
 
@@ -60,7 +49,7 @@ void *motorThread(void *arg0) {
 
     m.roverState = SearchingForJenga;
     while (1) {
-        driveBackward(speed);
+        rotateRight(speed);
 
         if(readFromPSQueue(&m)) {
             if(m.type == SUBSCRIBE_TYPE) {
@@ -79,6 +68,82 @@ void *motorThread(void *arg0) {
         }
         move_algorithm(r);
     }
+}
+
+void *encoderQueueThread(void *arg0) {
+    struct MotorMessage msg;
+    int encoder_val;
+    char encoderChosen;
+
+    while (1) {
+        if(readFromQueue(&msg)) {
+            encoder_val = (int)msg.val;
+            encoderChosen = msg.encoder;
+            chooseEncoder(encoder_val, encoderChosen);
+        }
+    }
+}
+
+void *encoderThread(void *arg0) {
+    while (1) {
+        read_encoder(MOTOR1);
+        read_encoder(MOTOR2);
+        read_encoder(MOTOR3);
+    }
+}
+
+int createEncoderQueueThread() {
+    pthread_t           thread0;
+    pthread_attr_t      attrs;
+    struct sched_param  priParam;
+    int                 retc;
+    int                 detachState;
+
+    pthread_attr_init(&attrs);
+
+    detachState = PTHREAD_CREATE_DETACHED;
+    retc = pthread_attr_setdetachstate(&attrs, detachState);
+    if (retc != 0) {
+        return 0;
+    }
+    retc |= pthread_attr_setstacksize(&attrs, ENCODERTHREADSTACKSIZE);
+    if (retc != 0) {
+        return 0;
+    }
+    priParam.sched_priority = 1;
+    pthread_attr_setschedparam(&attrs, &priParam);
+    retc = pthread_create(&thread0, &attrs, encoderQueueThread, NULL);
+    if (retc != 0) {
+        return 0;
+    }
+    return 1;
+}
+
+int createEncoderThread() {
+    pthread_t           thread0;
+    pthread_attr_t      attrs;
+    struct sched_param  priParam;
+    int                 retc;
+    int                 detachState;
+
+    pthread_attr_init(&attrs);
+
+    detachState = PTHREAD_CREATE_DETACHED;
+    retc = pthread_attr_setdetachstate(&attrs, detachState);
+    if (retc != 0) {
+        return 0;
+    }
+    retc |= pthread_attr_setstacksize(&attrs, ENCODERTHREADSTACKSIZE);
+    if (retc != 0) {
+        return 0;
+    }
+    priParam.sched_priority = 1;
+    pthread_attr_setschedparam(&attrs, &priParam);
+    retc = pthread_create(&thread0, &attrs, encoderThread, NULL);
+    if (retc != 0) {
+        return 0;
+    }
+    return 1;
 }
 
 void move_algorithm(struct recvMsg r) {
