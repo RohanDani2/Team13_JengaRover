@@ -47,5 +47,6 @@ void driveBackward(char speed);
 void rotateLeft(char speed);
 void rotateRight(char speed);
 void motorStop();
+void chooseEncoder(int encoder_val, char encoderChosen);
 
 #endif // __UART_IF_H__

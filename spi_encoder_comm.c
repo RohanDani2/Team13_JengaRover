@@ -1,10 +1,3 @@
-/*
- * SPItoMotorEncoder.c
- *
- *  Created on: Mar 4, 2020
- *      Author: Rohan J. Dani
- */
-
 #include "spi_encoder_comm.h"
 
 /* global buffers to handle the read and write from spi */
@@ -12,26 +5,6 @@ uint8_t register_tx_buff[0x2] = {0};
 uint8_t register_rx_buff[0x2] = {0};
 uint8_t tx_buffer[0x5] = {0};
 uint8_t rx_buffer[0x5] = {0};
-
-void chooseEncoder(int encoder_val, char encoderChosen) {
-    if (encoderChosen == '1') {
-/*        int c;
-        c = snprintf(buffer, 30, "Encoder 1: %d \r\n", encoder_val);
-        UART_write(uart_test, buffer, c);*/
-    }
-    else if(encoderChosen == '2')
-    {
-/*        int c;
-        c = snprintf(buffer, 30, "Encoder 2: %d \r\n", encoder_val);
-        UART_write(uart_test, buffer, c);*/
-    }
-    else if(encoderChosen == '3')
-    {
-/*        int c;
-        c = snprintf(buffer, 30, "Encoder 3: %d \r\n", encoder_val);
-        UART_write(uart_test, buffer, c);*/
-    }
-}
 
 void initSPIParams() {
     SPI_init();
@@ -81,17 +54,17 @@ void encoderCallback(SPI_Handle handle, SPI_Transaction *transaction)
     if (encoder == Encoder1) {
         count_value = (value[1] << 24) | (value[2] << 16) | (value[3] << 8) | (value[4]);
         whichEncoder = '1';
-        //sendEncodertoQueue(count_value, whichEncoder);
+        sendEncodertoQueue(count_value, whichEncoder);
     }
     else if(encoder == Encoder2) {
         count_value = (value[1] << 24) | (value[2] << 16) | (value[3] << 8) | (value[4]);
         whichEncoder = '2';
-        //sendEncodertoQueue(count_value, whichEncoder);
+        sendEncodertoQueue(count_value, whichEncoder);
     }
     else if(encoder == Encoder3) {
         count_value = (value[1] << 24) | (value[2] << 16) | (value[3] << 8) | (value[4]);
         whichEncoder = '3';
-        //sendEncodertoQueue(count_value, whichEncoder);
+        sendEncodertoQueue(count_value, whichEncoder);
     }
 }
 

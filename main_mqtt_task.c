@@ -12,12 +12,12 @@ void *mainMqttTask(void *arg0) {
     while(1){
         if(readFromPSQueue(&m)) {
             if(m.type == PUBLISH_TYPE){
-                if(sendMQTTJSON(publish_topic0, publish_data ,m.roverState, sequence)){
+                if(sendMQTTJSON(publish_topic0, publish_data ,m.roverState, sequence)) {
                     sequence++;
                     updatePublishAttempt();
                     UART_PRINT("Published message %s\n\r", publish_data);
                 }
-                else{
+                else {
                     UART_PRINT("Failed to send message");
                 }
             }
@@ -29,10 +29,11 @@ void *mainMqttTask(void *arg0) {
                                             publish_data,
                                             pub_attempt,
                                             sub_received,
-                                            sub_not_received, ID)){
+                                            sub_not_received, ID)) {
                     ID += 1;
                     UART_PRINT("Published stats message\n\r");
-                }else{
+                }
+                else {
                     UART_PRINT("Failed to send stats msg\n\r\n\r");
                 }
             }

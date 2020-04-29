@@ -633,6 +633,33 @@ int createMotorThread() {
    return 1;
 }
 
+int createEncoderThread() {
+    pthread_t           thread0;
+    pthread_attr_t      attrs;
+    struct sched_param  priParam;
+    int                 retc;
+    int                 detachState;
+
+    pthread_attr_init(&attrs);
+
+    detachState = PTHREAD_CREATE_DETACHED;
+    retc = pthread_attr_setdetachstate(&attrs, detachState);
+    if (retc != 0) {
+        return 0;
+    }
+    retc |= pthread_attr_setstacksize(&attrs, ENCODERTHREADSTACKSIZE);
+    if (retc != 0) {
+        return 0;
+    }
+    priParam.sched_priority = 1;
+    pthread_attr_setschedparam(&attrs, &priParam);
+    retc = pthread_create(&thread0, &attrs, encoderThread, NULL);
+    if (retc != 0) {
+        return 0;
+    }
+    return 1;
+}
+
 void mainThread(void * args)
 {
     uint32_t count = 0;
@@ -705,7 +732,11 @@ void mainThread(void * args)
     }
 
     if(!createPSMsgQueue()) {
-        UART_PRINT("fail queue");
+        UART_PRINT("fail PS queue");
+    }
+
+    if(!createEncoderQueue()) {
+        UART_PRINT("fail Encoder queue");
     }
 
     if (!pTimerFunct()) {
@@ -733,6 +764,10 @@ void mainThread(void * args)
 
     if(!mTimerFunct()) {
         UART_PRINT("failed timer 1 creation");
+    }
+
+    if(!createEncoderThread()) {
+        UART_PRINT("Encoder Thread Failed\n\r");
     }
 
     while(1)

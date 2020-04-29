@@ -2,6 +2,24 @@
 
 static struct motorTimer timeVal = {0,false};
 
+void *encoderThread(void *arg0) {
+    struct MotorMessage msg;
+    int encoder_val;
+    char encoderChosen;
+
+    while (1) {
+         read_encoder(MOTOR1);
+         read_encoder(MOTOR2);
+         read_encoder(MOTOR3);
+
+         if(readFromQueue(&msg)) {
+             encoder_val = (int)msg.val;
+             encoderChosen = msg.encoder;
+             chooseEncoder(encoder_val, encoderChosen);
+         }
+    }
+}
+
 int mTimerFunct() {
     Timer_Handle timer1;
     Timer_Params params;
@@ -18,7 +36,7 @@ int mTimerFunct() {
     params.timerCallback = mTimerCallback;
 
     timer1 = Timer_open(CONFIG_TIMER_1, &params);
-    if (timer1 == NULL || Timer_start(timer1) == Timer_STATUS_ERROR){
+    if (timer1 == NULL || Timer_start(timer1) == Timer_STATUS_ERROR) {
         return 0;
     }
     return 1;
@@ -26,8 +44,8 @@ int mTimerFunct() {
 
 // when timer expires, queue event to indicate that a message should be published
 void mTimerCallback(Timer_Handle myHandle) {
-    m.type = PUBLISH_TYPE;
     timeVal.timePassed += 1;
+    m.type = PUBLISH_TYPE;
 
     if(!sendMsgToPSQueue(&m)){
         dbgFail();
@@ -35,9 +53,15 @@ void mTimerCallback(Timer_Handle myHandle) {
 }
 
 void *motorThread(void *arg0) {
+    initSPIParams();
+    startEncoderTransmission();
+
     struct recvMsg r;
+
     m.roverState = SearchingForJenga;
     while (1) {
+        driveBackward(speed);
+
         if(readFromPSQueue(&m)) {
             if(m.type == SUBSCRIBE_TYPE) {
             // receive topic0 message

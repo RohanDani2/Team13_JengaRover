@@ -21,6 +21,7 @@
 #include "ti_drivers_config.h"
 
 #include <uart_term.h>
+#include <encoder_queue.h>
 
 SPI_Handle      masterSpi;
 SPI_Params      spiParams;

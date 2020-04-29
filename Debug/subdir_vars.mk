@@ -16,6 +16,7 @@ C_SRCS += \
 ./syscfg/ti_drivers_net_wifi_config.c \
 ./syscfg/ti_drivers_config.c \
 ../debug.c \
+../encoder_queue.c \
 ../eventQueue.c \
 ../main_freertos.c \
 ../main_motor_task.c \
@@ -41,6 +42,7 @@ C_DEPS += \
 ./syscfg/ti_drivers_net_wifi_config.d \
 ./syscfg/ti_drivers_config.d \
 ./debug.d \
+./encoder_queue.d \
 ./eventQueue.d \
 ./main_freertos.d \
 ./main_motor_task.d \
@@ -59,6 +61,7 @@ OBJS += \
 ./syscfg/ti_drivers_net_wifi_config.obj \
 ./syscfg/ti_drivers_config.obj \
 ./debug.obj \
+./encoder_queue.obj \
 ./eventQueue.obj \
 ./main_freertos.obj \
 ./main_motor_task.obj \
@@ -84,6 +87,7 @@ OBJS__QUOTED += \
 "syscfg\ti_drivers_net_wifi_config.obj" \
 "syscfg\ti_drivers_config.obj" \
 "debug.obj" \
+"encoder_queue.obj" \
 "eventQueue.obj" \
 "main_freertos.obj" \
 "main_motor_task.obj" \
@@ -106,6 +110,7 @@ C_DEPS__QUOTED += \
 "syscfg\ti_drivers_net_wifi_config.d" \
 "syscfg\ti_drivers_config.d" \
 "debug.d" \
+"encoder_queue.d" \
 "eventQueue.d" \
 "main_freertos.d" \
 "main_motor_task.d" \
@@ -128,6 +133,7 @@ C_SRCS__QUOTED += \
 "./syscfg/ti_drivers_net_wifi_config.c" \
 "./syscfg/ti_drivers_config.c" \
 "../debug.c" \
+"../encoder_queue.c" \
 "../eventQueue.c" \
 "../main_freertos.c" \
 "../main_motor_task.c" \

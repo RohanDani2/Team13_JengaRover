@@ -23,6 +23,7 @@
 #include <uart_term.h>
 #include <debug.h>
 #include <spi_encoder_comm.h>
+#include <encoder_queue.h>
 #include <parseJSON.h>
 #include <pubSubQueue.h>
 #include <stats.h>
@@ -33,12 +34,15 @@
 struct pubSubMsg m;
 static unsigned char speed = 20;
 
+#define ENCODERTHREADSTACKSIZE (4096)
+
 struct motorTimer {
     int timePassed;
     bool goalReached;
 };
 
 void *motorThread(void *arg0);
+void *encoderThread(void *arg0);
 int mTimerFunct();
 void mTimerCallback(Timer_Handle myHandle);
 void move_algorithm(struct recvMsg r);

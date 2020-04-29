@@ -7,6 +7,8 @@ static char pcBuff[BUF_SIZE];
 static UART_Handle uartHandle;
 static UART_Handle uart;
 
+static char buffer[100];
+
 extern int vsnprintf(char * s,
                      size_t n,
                      const char * format,
@@ -260,6 +262,26 @@ char getch(void)
 void putch(char ch)
 {
     UART_writePolling(uartHandle, &ch, 1);
+}
+
+void chooseEncoder(int encoder_val, char encoderChosen) {
+    if (encoderChosen == '1') {
+        int c;
+        c = snprintf(buffer, 100, "Encoder 1: %d \r\n", encoder_val);
+        UART_write(uartHandle, buffer, c);
+    }
+    else if(encoderChosen == '2')
+    {
+        int c;
+        c = snprintf(buffer, 100, "Encoder 2: %d \r\n", encoder_val);
+        UART_write(uartHandle, buffer, c);
+    }
+    else if(encoderChosen == '3')
+    {
+        int c;
+        c = snprintf(buffer, 100, "Encoder 3: %d \r\n", encoder_val);
+        UART_write(uartHandle, buffer, c);
+    }
 }
 
 void initBaudRate() {

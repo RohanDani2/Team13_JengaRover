@@ -36,6 +36,7 @@
 #include <debug.h>
 #include <eventQueue.h>
 #include <publish_timer.h>
+#include <encoder_queue.h>
 #include <main_mqtt_task.h>
 #include <main_motor_task.h>
 
@@ -139,5 +140,6 @@ int sendStatMQTTJSON(char* publish_topic1,
                             int32_t sub_not_received, int32_t ID);
 int32_t MQTT_SendMsgToQueue(struct eventMessage *queueElement);
 int createMotorThread();
+int createEncoderThread();
 
 #endif /* MQTT_CLIENT_APP_H_ */
