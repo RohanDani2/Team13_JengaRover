@@ -25,7 +25,6 @@ int pTimerFunct() {
 // when timer expires, queue event to indicate that a message should be published
 void pTimerCallback(Timer_Handle myHandle)
 {
-
 /*    struct pubSubMsg m;
 
     m.type = PUBLISH_TYPE;

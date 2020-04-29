@@ -30,7 +30,12 @@
 #define SUB_TOPIC0_LEN 7
 
 struct pubSubMsg m;
-static unsigned char speed = 5;
+static unsigned char speed = 20;
+
+struct motorTimer {
+    int timePassed;
+    bool goalReached;
+};
 
 void *motorThread(void *arg0);
 int mTimerFunct();

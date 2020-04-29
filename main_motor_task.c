@@ -1,8 +1,10 @@
 #include <main_motor_task.h>
 
+static struct motorTimer timeVal = {0,false};
+
 int mTimerFunct() {
-    Timer_Params params;
     Timer_Handle timer1;
+    Timer_Params params;
     /* Call driver init functions */
     Timer_init();
 
@@ -10,7 +12,7 @@ int mTimerFunct() {
      * function every 1,000,000 microseconds, or 1 second.
      */
     Timer_Params_init(&params);
-    params.period = 2000000;
+    params.period = 1000000;
     params.periodUnits = Timer_PERIOD_US;
     params.timerMode = Timer_CONTINUOUS_CALLBACK;
     params.timerCallback = mTimerCallback;
@@ -25,7 +27,8 @@ int mTimerFunct() {
 // when timer expires, queue event to indicate that a message should be published
 void mTimerCallback(Timer_Handle myHandle) {
     m.type = PUBLISH_TYPE;
-    //write message indicating timer expired event
+    timeVal.timePassed += 1;
+
     if(!sendMsgToPSQueue(&m)){
         dbgFail();
     }
@@ -41,7 +44,6 @@ void *motorThread(void *arg0) {
                 if(strncmp(m.topic, SUBSCRIPTION_TOPIC0, SUB_TOPIC0_LEN) == 0) {
                     if(parseJSON(m.data_buf, &r)){
                         UART_PRINT("Received Sensor Value\n\r");
-                        move_algorithm(r);
                     }
                     else {
                         UART_PRINT("Failed to parse Sensor message: \n\r %s\n\r", m.data_buf);
@@ -49,19 +51,17 @@ void *motorThread(void *arg0) {
                 }
             }
         }
+        move_algorithm(r);
     }
 }
 
 void move_algorithm(struct recvMsg r) {
-
     switch(r.ID) {
         case 1:
             if (r.Jenga) {
                 if (r.X == 0) {
-                    //driveForward(speed);
                 }
             }
         break;
     }
-    motorStop();
 }
