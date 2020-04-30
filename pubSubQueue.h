@@ -25,6 +25,7 @@
 #define WaitingForArm 5
 #define ReadyForNextSensorValue 6
 #define ErrorState 7
+#define Finished 8
 
 #define MAX_MSG_BUF_SIZE 350
 
