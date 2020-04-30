@@ -3,8 +3,8 @@
 void *mainMqttTask(void *arg0) {
 
     struct pubSubMsg m;
-    int32_t sequence = 0;
     int32_t ID = 0;
+    int32_t sequence = 0;
 
     char publish_topic0[MAX_TOPIC_LEN] = { PUBLISH_TOPIC0 };
     char publish_topic1[MAX_TOPIC_LEN] = { PUBLISH_TOPIC1 };
@@ -13,14 +13,14 @@ void *mainMqttTask(void *arg0) {
     while(1){
         if(readFromPSQueue(&m)) {
             if(m.type == PUBLISH_TYPE){
-                if(sendMQTTJSON(publish_topic0, publish_data ,m.roverState, sequence)) {
-                    sequence++;
-                    updatePublishAttempt();
-                    UART_PRINT("Published message %s\n\r", publish_data);
-                }
-                else {
-                    UART_PRINT("Failed to send message");
-                }
+               if(sendMQTTJSON(publish_topic0, publish_data ,m.roverState, sequence)) {
+                   sequence++;
+                   updatePublishAttempt();
+                   UART_PRINT("Published message %s\n\r", publish_data);
+               }
+               else {
+                   UART_PRINT("Failed to send message");
+               }
             }
             else if(m.type == PUBLISH_STAT) {
                 int32_t pub_attempt = getPublishAttempt();

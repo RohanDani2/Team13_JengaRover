@@ -1,7 +1,6 @@
 #include <main_motor_task.h>
-
 static struct motorTimer timeVal = {0,false,0};
-static struct pubSubMsg m;
+int count = 0;
 
 int mTimerFunct() {
     Timer_Handle timer1;
@@ -28,11 +27,6 @@ int mTimerFunct() {
 // when timer expires, queue event to indicate that a message should be published
 void mTimerCallback(Timer_Handle myHandle) {
     timeVal.timePassed += 1;
-    m.type = PUBLISH_TYPE;
-
-    if(!sendMsgToPSQueue(&m)){
-        dbgFail();
-    }
 }
 
 void *motorThread(void *arg0) {
@@ -48,15 +42,28 @@ void *motorThread(void *arg0) {
     }*/
 
     struct recvMsg r;
+    struct pubSubMsg m = {0,0,0,0,0,0};
+    int32_t roverState = 0;
     m.roverState = 0;
-
-    struct roverState state;
-    state.RoverState = 0;
+    m.type = PUBLISH_TYPE;
+    if(!sendMsgToPSQueue(&m)){
+        dbgFail();
+    }
 
     while (1) {
+
+        if (count == 0 && roverState < 7 && roverState >= 0) {
+            //roverState = move_algorithm(r, roverState, count);
+        }
+        m.roverState = 0;
+        m.type = PUBLISH_TYPE;
+        if(!sendMsgToPSQueue(&m)){
+            dbgFail();
+        }
+
         if(readFromPSQueue(&m)) {
             if(m.type == SUBSCRIBE_TYPE) {
-                if (strncmp(m.topic, SUBSCRIPTION_TOPIC0, SUB_TOPIC0_LEN) == 0) {
+                if(strncmp(m.topic, SUBSCRIPTION_TOPIC0, SUB_TOPIC0_LEN) == 0) {
                     if(parseJSON(m.data_buf, &r)){
                         updateSubscribeReceied();
                         updateSubscribeShouldReceivedState1(r.seq);
@@ -71,147 +78,77 @@ void *motorThread(void *arg0) {
     }
 }
 
-void move_algorithm(struct recvMsg r, struct roverState state) {
-    if (m.roverState == SearchingForJenga) {
-        if (r.armState == 1) {
-            state.RoverState = WaitingForArm;
-            m.roverState = WaitingForArm;
+int32_t move_algorithm(struct recvMsg r,int32_t roverState, int count) {
+    if (roverState != Finished) {
+        if (r.X >= 0 && r.Y >= 0) {
+            switch(roverState) {
+                case SearchingForJenga:
+                    if (r.armState == 1) {
+                        roverState = WaitingForArm;
+                    }
+                    else if(r.Jenga == 0) {
+                        roverState = AvoidingObstacle;
+                    }
+                    else {
+                        if (r.X == 0 && r.Y != 0) {
+                            towardsJenga(r, 5);
+                            roverState = FoundJenga;
+                        }
+                        else if (r.X < 0 && r.Y != 0) {
+                            towardsJenga(r, 2);
+                            timed_rotateLeft(r, 2);
+                            towardsJenga(r, 2);
+                            roverState = FoundJenga;
+                        }
+                        else if (r.X > 0 && r.Y != 0) {
+                            towardsJenga(r, 2);
+                            timed_rotateRight(r, 2);
+                            towardsJenga(r, 2);
+                            roverState = FoundJenga;
+                        }
+                    }
+                    UART_PRINT("\n\n\rCase 1\n\n\r");
+                    break;
+                case AvoidingObstacle:
+                    avoidObstacleXY(r);
+                    roverState = SearchingForJenga;
+                    break;
+                case FoundJenga:
+                    UART_PRINT("\n\n\rCase 2\n\n\r");
+                    //avoidObstacleXY(r);
+                    roverState = TowardDestination;
+                    break;
+                case TowardDestination:
+                    UART_PRINT("\n\n\rCase 3\n\n\r");
+                    timed_driveForward(r, 10);
+                    roverState = AtDestination;
+                    break;
+                case AtDestination:
+                    UART_PRINT("\n\n\rCase 4\n\n\r");
+                    timed_rotateRight(r, 5);
+                    roverState = ReadyForNextSensorValue;
+                    break;
+                case WaitingForArm:
+                    UART_PRINT("\n\n\rWaiting for Arm\n\n\r");
+                    if (r.armState == 0) {
+                        roverState = SearchingForJenga;
+                    }
+                    break;
+                case ReadyForNextSensorValue:
+                    UART_PRINT("\n\n\rCase 5\n\n\r");
+                    UART_PRINT("\n\n\rSent to Queue\n\n\r");
+                    if (r.ID == 2) {
+                        UART_PRINT("\n\n\rNext Data value Found\n\n\r");
+                        roverState = SearchingForJenga;
+                    }
+                    roverState = Finished;
+                    break;
+                default:
+                    roverState = ErrorState;
+            }
         }
-        else if(r.Jenga == 0) {
-            state.RoverState = WaitingForArm;
-            m.roverState = AvoidingObstacle;
-        }
-        else {
-            if (r.X == 0 && r.Y != 0) {
-                towardsJenga(r, 5);
-                state.RoverState = FoundJenga;
-                m.roverState = FoundJenga;
-                UART_PRINT("\n\n\rupdate\n\n\r");
-            }
-            else if (r.X < 0 && r.Y != 0) {
-                towardsJenga(r, 2);
-                timed_rotateLeft(r, 2);
-                towardsJenga(r, 2);
-                state.RoverState = FoundJenga;
-                m.roverState = FoundJenga;
-            }
-            else if (r.X > 0 && r.Y != 0) {
-                towardsJenga(r, 2);
-                timed_rotateRight(r, 2);
-                towardsJenga(r, 2);
-                state.RoverState = FoundJenga;
-                m.roverState = FoundJenga;
-            }
-        }
     }
-    else if(m.roverState == AvoidingObstacle) {
-        avoidObstacleXY(r);
-        state.RoverState = SearchingForJenga;
-        m.roverState = SearchingForJenga;
-    }
-    else if(m.roverState == FoundJenga) {
-        //avoidObstacleXY(r);
-        state.RoverState = TowardDestination;
-        m.roverState = TowardDestination;
-    }
-    else if(m.roverState == TowardDestination) {
-        UART_PRINT("\n\n\rTowards Destination\n\n\r");
-        timed_driveForward(r, 10);
-        state.RoverState = AtDestination;
-        m.roverState = AtDestination;
-    }
-    else if(m.roverState == AtDestination) {
-        UART_PRINT("\n\n\rAt Destination\n\n\r");
-        timed_rotateRight(r, 5);
-        state.RoverState = ReadyForNextSensorValue;
-        m.roverState = ReadyForNextSensorValue;
-    }
-    else if(m.roverState == WaitingForArm) {
-        UART_PRINT("\n\n\rWaiting for Arm\n\n\r");
-        if (r.armState == 0) {
-            state.RoverState = SearchingForJenga;
-            m.roverState = SearchingForJenga;
-        }
-    }
-    else if(m.roverState == ReadyForNextSensorValue) {
-        UART_PRINT("\n\n\rReady for next Sensor Value\n\n\r");
-        if (r.ID += 1) {
-            UART_PRINT("\n\n\rNext Data value Found\n\n\r");
-            state.RoverState = SearchingForJenga;
-            m.roverState = SearchingForJenga;
-        }
-    }
-    else {
-        m.roverState = ErrorState;
-    }
-    /*switch(state.RoverState) {
-        case SearchingForJenga:
-            if (r.armState == 1) {
-                state.RoverState = WaitingForArm;
-                m.roverState = WaitingForArm;
-            }
-            else if(r.Jenga == 0) {
-                state.RoverState = WaitingForArm;
-                m.roverState = AvoidingObstacle;
-            }
-            else {
-                if (r.X == 0 && r.Y != 0) {
-                    towardsJenga(r, 5);
-                    state.RoverState = FoundJenga;
-                    m.roverState = FoundJenga;
-                    UART_PRINT("\n\n\rupdate\n\n\r");
-                }
-                else if (r.X < 0 && r.Y != 0) {
-                    towardsJenga(r, 2);
-                    timed_rotateLeft(r, 2);
-                    towardsJenga(r, 2);
-                    state.RoverState = FoundJenga;
-                    m.roverState = FoundJenga;
-                }
-                else if (r.X > 0 && r.Y != 0) {
-                    towardsJenga(r, 2);
-                    timed_rotateRight(r, 2);
-                    towardsJenga(r, 2);
-                    state.RoverState = FoundJenga;
-                    m.roverState = FoundJenga;
-                }
-            }
-        case AvoidingObstacle:
-            avoidObstacleXY(r);
-            state.RoverState = SearchingForJenga;
-            m.roverState = SearchingForJenga;
-        case FoundJenga:
-            UART_PRINT("\n\n\rFound Jenga Block\n\n\r");
-            //avoidObstacleXY(r);
-            state.RoverState = TowardDestination;
-            m.roverState = TowardDestination;
-        case TowardDestination:
-            UART_PRINT("\n\n\rTowards Destination\n\n\r");
-            timed_driveForward(r, 10);
-            state.RoverState = AtDestination;
-            m.roverState = AtDestination;
-        case AtDestination:
-            UART_PRINT("\n\n\rAt Destination\n\n\r");
-            timed_rotateRight(r, 5);
-            state.RoverState = ReadyForNextSensorValue;
-            m.roverState = ReadyForNextSensorValue;
-        case WaitingForArm:
-            UART_PRINT("\n\n\rWaiting for Arm\n\n\r");
-            if (r.armState == 0) {
-                state.RoverState = SearchingForJenga;
-                m.roverState = SearchingForJenga;
-            }
-        case ReadyForNextSensorValue:
-            UART_PRINT("\n\n\rReady for next Sensor Value\n\n\r");
-            if (r.ID += 1) {
-                UART_PRINT("\n\n\rNext Data value Found\n\n\r");
-                state.RoverState = SearchingForJenga;
-                m.roverState = SearchingForJenga;
-            }
-        default:
-            m.roverState = ErrorState;
-
-    }*/
+    return roverState;
 }
 
 void avoidObstacleXY(struct recvMsg r) {

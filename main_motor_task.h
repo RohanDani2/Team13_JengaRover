@@ -42,8 +42,8 @@ struct motorTimer {
     int motorTime;
 };
 
-struct roverState {
-    int32_t RoverState;
+struct timesRan {
+    int count;
 };
 
 void *motorThread(void *arg0);
@@ -54,7 +54,8 @@ void mTimerCallback(Timer_Handle myHandle);
 int startEncoderQueueTask();
 void *encoderRead(void *arg0);
 
-void move_algorithm(struct recvMsg r, struct roverState state);
+
+int32_t move_algorithm(struct recvMsg r,int32_t roverState, int count);
 void avoidObstacleXY(struct recvMsg r);
 void towardsJenga(struct recvMsg r, int timetoRoll);
 void timed_rotateLeft(struct recvMsg r, int timetoRoll);
