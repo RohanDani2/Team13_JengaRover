@@ -1,6 +1,6 @@
 #include <main_motor_task.h>
 
-static struct motorTimer timeVal = {0,false};
+static struct motorTimer timeVal = {0,false,0};
 
 int mTimerFunct() {
     Timer_Handle timer1;
@@ -38,19 +38,19 @@ void *motorThread(void *arg0) {
     initSPIParams();
     startEncoderTransmission();
 
-    if(!createEncoderThread()) {
+/*    if(!createEncoderThread()) {
         UART_PRINT("Encoder Thread Failed\n\r");
     }
 
     if(!startEncoderQueueTask()) {
         UART_PRINT("Encoder Read Thread Failed\n\r");
-    }
+    }*/
 
     struct recvMsg r;
 
-    //m.roverState = SearchingForJenga;
+    m.roverState = SearchingForJenga;
     while (1) {
-        rotateRight(speed);
+        move_algorithm(r);
         if(readFromPSQueue(&m)) {
             if(m.type == SUBSCRIBE_TYPE) {
                 if (strncmp(m.topic, SUBSCRIPTION_TOPIC0, SUB_TOPIC0_LEN) == 0) {
@@ -66,6 +66,133 @@ void *motorThread(void *arg0) {
             }
         }
     }
+}
+
+void move_algorithm(struct recvMsg r) {
+    int timetoRollX = 0;
+    int timetoRollY = 0;
+
+    switch(r.ID) {
+        case 1:
+            if (r.Jenga == 1 && r.armState == 0) {
+                if (r.X == 0 && r.Y != 0) {
+                    towardsJenga(r, 3);
+                    m.roverState = TowardDestination;
+                    UART_PRINT("changed to destination in rover state");
+                    avoidObstacleXY(r);
+                }
+                else if (r.X < 0 && r.Y != 0) {
+                    UART_PRINT("shouldn't be here 1");
+                    timetoRollX = r.X%speed;
+                    timetoRollY = r.Y%speed;
+                    towardsJenga(r, timetoRollY);
+                    timed_rotateLeft(r, timetoRollX);
+                    towardsJenga(r, timetoRollY);
+                }
+                else if (r.X > 0 && r.Y != 0) {
+                    UART_PRINT("shouldn't be here 2");
+                    timetoRollX = r.X%speed;
+                    timetoRollY = r.Y%speed;
+                    towardsJenga(r, timetoRollY);
+                    timed_rotateRight(r, timetoRollX);
+                    towardsJenga(r, timetoRollY);
+                }
+            }
+            else if(r.armState == 1) {
+                UART_PRINT("shouldn't be here 3");
+                m.roverState = WaitingForArm;
+            }
+            else if(r.Jenga == 0) {
+                UART_PRINT("shouldn't be here 4");
+                m.roverState = AvoidingObstacle;
+                avoidObstacleXY(r);
+            }
+
+            if (m.roverState == TowardDestination) {
+                UART_PRINT("going towards destination");
+                timed_driveForward(r, 10);
+                sleep(2);
+                m.roverState = AtDestination;
+                timed_rotateRight(r, 3);
+                sleep(2);
+                UART_PRINT("ready for next sensor value");
+                m.roverState = ReadyForNextSensorValue;
+                sleep(2);
+            }
+        break;
+    }
+}
+
+void avoidObstacleXY(struct recvMsg r) {
+    if (r.Y > 0 && r.X == 0) {
+        UART_PRINT("avoiding jenga block so I can go towards destination");
+        motorStop();
+        sleep(2);
+        timed_rotateRight(r, 2);
+        sleep(2);
+        timed_driveForward(r, 2);
+        sleep(2);
+        timed_rotateLeft(r, 2);
+    }
+}
+
+void towardsJenga(struct recvMsg r, int timetoRoll) {
+    int timePassed;
+    for (timePassed = timeVal.timePassed; timePassed <= timetoRoll; timePassed++) {
+        m.roverState = SearchingForJenga;
+        UART_PRINT("Moving towards Jenga");
+        driveForward(speed);
+    }
+    sleep(2);
+    UART_PRINT("Found the Jenga");
+    m.roverState = FoundJenga;
+    timeVal.motorTime = timetoRoll;
+    motorStop();
+    sleep(2);
+}
+
+void timed_driveForward(struct recvMsg r, int timetoRoll) {
+    int timePassed;
+    timetoRoll += timeVal.motorTime;
+    for (timePassed = timeVal.motorTime; timePassed <= timetoRoll; timePassed++) {
+        driveForward(speed);
+    }
+
+    motorStop();
+    sleep(2);
+}
+
+void timed_driveBackward(struct recvMsg r, int timetoRoll) {
+    int timePassed;
+    timetoRoll += timeVal.motorTime;
+    for (timePassed = timeVal.motorTime; timePassed <= timetoRoll; timePassed++) {
+        driveBackward(speed);
+    }
+
+    motorStop();
+    sleep(2);
+}
+
+void timed_rotateLeft(struct recvMsg r, int timetoRoll) {
+    int timePassed;
+    timetoRoll += timeVal.motorTime;
+    for (timePassed = timeVal.motorTime; timePassed <= timetoRoll; timePassed++) {
+        rotateLeft(speed);
+    }
+
+    motorStop();
+    sleep(2);
+}
+
+void timed_rotateRight(struct recvMsg r, int timetoRoll) {
+    int timePassed;
+    timetoRoll += timeVal.motorTime;
+    for (timePassed = timeVal.motorTime; timePassed <= timetoRoll; timePassed++) {
+        rotateRight(speed);
+    }
+
+    motorStop();
+    sleep(2);
 }
 
 void *encoderThread(void *arg0) {
@@ -92,17 +219,6 @@ void *encoderRead(void *arg0) {
 
 int startEncoderQueueTask() {
     return xTaskCreate( encoderRead, "encoder queue",configPOSIX_STACK_SIZE*4, NULL,SPAWN_TASK_PRIORITY, NULL) == pdPASS;
-}
-
-void move_algorithm(struct recvMsg r) {
-/*    switch(r.ID) {
-        case 1:
-            if (r.Jenga) {
-                if (r.X == 0) {
-                }
-            }
-        break;
-    }*/
 }
 
 int createEncoderThread() {

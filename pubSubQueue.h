@@ -19,9 +19,12 @@
 
 #define SearchingForJenga 0
 #define AvoidingObstacle 1
-#define FoundJenga 2
-#define AtDestination 3
-#define ErrorState 4
+#define WaitingForArm 2
+#define FoundJenga 3
+#define TowardDestination 4
+#define AtDestination 5
+#define ReadyForNextSensorValue 6
+#define ErrorState 7
 
 #define MAX_MSG_BUF_SIZE 350
 

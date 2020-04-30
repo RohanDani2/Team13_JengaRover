@@ -28,8 +28,6 @@
 #include <pubSubQueue.h>
 #include <stats.h>
 
-static unsigned char speed = 20;
-
 #define ENCODERTHREADSTACKSIZE (4096)
 #define SPAWN_TASK_PRIORITY      9
 
@@ -37,10 +35,12 @@ static unsigned char speed = 20;
 #define SUB_TOPIC0_LEN 7
 
 struct pubSubMsg m;
+static unsigned char speed = 10;
 
 struct motorTimer {
     int timePassed;
     bool goalReached;
+    int motorTime;
 };
 
 void *motorThread(void *arg0);
@@ -48,9 +48,16 @@ void *encoderThread(void *arg0);
 int createEncoderThread();
 int mTimerFunct();
 void mTimerCallback(Timer_Handle myHandle);
-void move_algorithm(struct recvMsg r);
 int startEncoderQueueTask();
 void *encoderRead(void *arg0);
+void move_algorithm(struct recvMsg r);
+
+void avoidObstacleXY(struct recvMsg r);
+void towardsJenga(struct recvMsg r, int timetoRoll);
+void timed_rotateLeft(struct recvMsg r, int timetoRoll);
+void timed_rotateRight(struct recvMsg r, int timetoRoll);
+void timed_driveBackward(struct recvMsg r, int timetoRoll);
+void timed_driveForward(struct recvMsg r, int timetoRoll);
 
 
 
