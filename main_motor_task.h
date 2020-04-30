@@ -34,13 +34,16 @@
 #define SUBSCRIPTION_TOPIC0      "/sensor"
 #define SUB_TOPIC0_LEN 7
 
-struct pubSubMsg m;
 static unsigned char speed = 10;
 
 struct motorTimer {
     int timePassed;
     bool goalReached;
     int motorTime;
+};
+
+struct roverState {
+    int32_t RoverState;
 };
 
 void *motorThread(void *arg0);
@@ -50,8 +53,8 @@ int mTimerFunct();
 void mTimerCallback(Timer_Handle myHandle);
 int startEncoderQueueTask();
 void *encoderRead(void *arg0);
-void move_algorithm(struct recvMsg r);
 
+void move_algorithm(struct recvMsg r, struct roverState state);
 void avoidObstacleXY(struct recvMsg r);
 void towardsJenga(struct recvMsg r, int timetoRoll);
 void timed_rotateLeft(struct recvMsg r, int timetoRoll);

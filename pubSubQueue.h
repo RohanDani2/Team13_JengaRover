@@ -19,10 +19,10 @@
 
 #define SearchingForJenga 0
 #define AvoidingObstacle 1
-#define WaitingForArm 2
-#define FoundJenga 3
-#define TowardDestination 4
-#define AtDestination 5
+#define FoundJenga 2
+#define TowardDestination 3
+#define AtDestination 4
+#define WaitingForArm 5
 #define ReadyForNextSensorValue 6
 #define ErrorState 7
 
