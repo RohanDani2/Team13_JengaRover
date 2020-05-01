@@ -34,8 +34,6 @@
 #define SUBSCRIPTION_TOPIC0      "/sensor"
 #define SUB_TOPIC0_LEN 7
 
-static unsigned char speed = 10;
-
 struct motorTimer {
     int timePassed;
     bool goalReached;
@@ -55,12 +53,12 @@ int startEncoderQueueTask();
 void *encoderRead(void *arg0);
 
 int32_t  move_algorithm(struct recvMsg r,int32_t roverState, int count);
-void avoidObstacleXY(struct recvMsg r);
-void towardsJenga(struct recvMsg r, int timetoRoll);
-void timed_rotateLeft(struct recvMsg r, int timetoRoll);
-void timed_rotateRight(struct recvMsg r, int timetoRoll);
-void timed_driveBackward(struct recvMsg r, int timetoRoll);
-void timed_driveForward(struct recvMsg r, int timetoRoll);
+void avoidObstacleXY(struct recvMsg r, int RR_timetoRoll, int F_timetoRoll, int RL_timetoRoll, unsigned char speed);
+void towardsJenga(struct recvMsg r, int timetoRoll, unsigned char speed);
+void timed_rotateLeft(struct recvMsg r, int timetoRoll, unsigned char speed);
+void timed_rotateRight(struct recvMsg r, int timetoRoll, unsigned char speed);
+void timed_driveBackward(struct recvMsg r, int timetoRoll, unsigned char speed);
+void timed_driveForward(struct recvMsg r, int timetoRoll, unsigned char speed);
 
 
 

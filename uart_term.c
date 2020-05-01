@@ -289,7 +289,7 @@ void initBaudRate() {
     UART_write(uart, &baudAddress, sizeof(baudAddress));
 }
 
-void driveForward(char speed) {
+void driveForward(char speed_Motor1, char speed_Motor2) {
 
     unsigned char forward = 0;
     unsigned char backward = 1;
@@ -298,16 +298,16 @@ void driveForward(char speed) {
     unsigned char motor2_address = 129;
     unsigned char motor3_address = 130;
 
-    unsigned char motor1_Mask = ((motor1_address + forward + speed) & 0b01111111);
+    unsigned char motor1_Mask = ((motor1_address + forward + speed_Motor1) & 0b01111111);
     UART_write(uart, &motor1_address, sizeof(motor1_address));
     UART_write(uart, &forward, sizeof(forward));
-    UART_write(uart, &speed, sizeof(speed));
+    UART_write(uart, &speed_Motor1, sizeof(speed_Motor1));
     UART_write(uart, &motor1_Mask, sizeof(motor1_Mask));
 
-    unsigned char motor2_Mask = ((motor2_address + backward + speed) & 0b01111111);
+    unsigned char motor2_Mask = ((motor2_address + backward + speed_Motor2) & 0b01111111);
     UART_write(uart, &motor2_address, sizeof(motor2_address));
     UART_write(uart, &backward, sizeof(backward));
-    UART_write(uart, &speed, sizeof(speed));
+    UART_write(uart, &speed_Motor2, sizeof(speed_Motor2));
     UART_write(uart, &motor2_Mask, sizeof(motor2_Mask));
 
     unsigned char motor3_Mask = ((motor3_address + forward + speed_motor3) & 0b01111111);
@@ -317,7 +317,7 @@ void driveForward(char speed) {
     UART_write(uart, &motor3_Mask, sizeof(motor3_Mask));
 }
 
-void driveBackward(char speed) {
+void driveBackward(char speed_Motor1, char speed_Motor2) {
 
     unsigned char forward = 0;
     unsigned char backward = 1;
@@ -326,16 +326,16 @@ void driveBackward(char speed) {
     unsigned char motor2_address = 129;
     unsigned char motor3_address = 130;
 
-    unsigned char motor1_Mask = ((motor1_address + backward + speed) & 0b01111111);
+    unsigned char motor1_Mask = ((motor1_address + backward + speed_Motor1) & 0b01111111);
     UART_write(uart, &motor1_address, sizeof(motor1_address));
     UART_write(uart, &backward, sizeof(backward));
-    UART_write(uart, &speed, sizeof(speed));
+    UART_write(uart, &speed_Motor1, sizeof(speed_Motor1));
     UART_write(uart, &motor1_Mask, sizeof(motor1_Mask));
 
-    unsigned char motor2_Mask = ((motor2_address + forward + speed) & 0b01111111);
+    unsigned char motor2_Mask = ((motor2_address + forward + speed_Motor2) & 0b01111111);
     UART_write(uart, &motor2_address, sizeof(motor2_address));
     UART_write(uart, &forward, sizeof(forward));
-    UART_write(uart, &speed, sizeof(speed));
+    UART_write(uart, &speed_Motor2, sizeof(speed_Motor2));
     UART_write(uart, &motor2_Mask, sizeof(motor2_Mask));
 
     unsigned char motor3_Mask = ((motor3_address + forward + speed_motor3) & 0b01111111);
@@ -345,55 +345,55 @@ void driveBackward(char speed) {
     UART_write(uart, &motor3_Mask, sizeof(motor3_Mask));
 }
 
-void rotateRight(char speed) {
+void rotateRight(char speed_Motor1, char speed_Motor2, char speed_Motor3) {
 
     unsigned char backward = 1;
     unsigned char motor1_address = 128;
     unsigned char motor2_address = 129;
     unsigned char motor3_address = 130;
 
-    unsigned char motor1_Mask = ((motor1_address + backward + speed) & 0b01111111);
+    unsigned char motor1_Mask = ((motor1_address + backward + speed_Motor1) & 0b01111111);
     UART_write(uart, &motor1_address, sizeof(motor1_address));
     UART_write(uart, &backward, sizeof(backward));
-    UART_write(uart, &speed, sizeof(speed));
+    UART_write(uart, &speed_Motor1, sizeof(speed_Motor1));
     UART_write(uart, &motor1_Mask, sizeof(motor1_Mask));
 
-    unsigned char motor2_Mask = ((motor2_address + backward + speed) & 0b01111111);
+    unsigned char motor2_Mask = ((motor2_address + backward + speed_Motor2) & 0b01111111);
     UART_write(uart, &motor2_address, sizeof(motor2_address));
     UART_write(uart, &backward, sizeof(backward));
-    UART_write(uart, &speed, sizeof(speed));
+    UART_write(uart, &speed_Motor2, sizeof(speed_Motor2));
     UART_write(uart, &motor2_Mask, sizeof(motor2_Mask));
 
-    unsigned char motor3_Mask = ((motor3_address + backward + speed) & 0b01111111);
+    unsigned char motor3_Mask = ((motor3_address + backward + speed_Motor3) & 0b01111111);
     UART_write(uart, &motor3_address, sizeof(motor3_address));
     UART_write(uart, &backward, sizeof(backward));
-    UART_write(uart, &speed, sizeof(speed));
+    UART_write(uart, &speed_Motor3, sizeof(speed_Motor3));
     UART_write(uart, &motor3_Mask, sizeof(motor3_Mask));
 }
 
-void rotateLeft(char speed) {
+void rotateLeft(char speed_Motor1, char speed_Motor2, char speed_Motor3) {
 
     unsigned char forward = 0;
     unsigned char motor1_address = 128;
     unsigned char motor2_address = 129;
     unsigned char motor3_address = 130;
 
-    unsigned char motor1_Mask = ((motor1_address + forward + speed) & 0b01111111);
+    unsigned char motor1_Mask = ((motor1_address + forward + speed_Motor1) & 0b01111111);
     UART_write(uart, &motor1_address, sizeof(motor1_address));
     UART_write(uart, &forward, sizeof(forward));
-    UART_write(uart, &speed, sizeof(speed));
+    UART_write(uart, &speed_Motor1, sizeof(speed_Motor1));
     UART_write(uart, &motor1_Mask, sizeof(motor1_Mask));
 
-    unsigned char motor2_Mask = ((motor2_address + forward + speed) & 0b01111111);
+    unsigned char motor2_Mask = ((motor2_address + forward + speed_Motor2) & 0b01111111);
     UART_write(uart, &motor2_address, sizeof(motor2_address));
     UART_write(uart, &forward, sizeof(forward));
-    UART_write(uart, &speed, sizeof(speed));
+    UART_write(uart, &speed_Motor2, sizeof(speed_Motor2));
     UART_write(uart, &motor2_Mask, sizeof(motor2_Mask));
 
-    unsigned char motor3_Mask = ((motor3_address + forward + speed) & 0b01111111);
+    unsigned char motor3_Mask = ((motor3_address + forward + speed_Motor3) & 0b01111111);
     UART_write(uart, &motor3_address, sizeof(motor3_address));
     UART_write(uart, &forward, sizeof(forward));
-    UART_write(uart, &speed, sizeof(speed));
+    UART_write(uart, &speed_Motor3, sizeof(speed_Motor3));
     UART_write(uart, &motor3_Mask, sizeof(motor3_Mask));
 }
 

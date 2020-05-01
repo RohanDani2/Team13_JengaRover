@@ -42,10 +42,10 @@ char getch(void);
 void putch(char ch);
 
 void initBaudRate();
-void driveForward(char speed);
-void driveBackward(char speed);
-void rotateLeft(char speed);
-void rotateRight(char speed);
+void driveForward(char speed_Motor1, char speed_Motor2) ;
+void driveBackward(char speed_Motor1, char speed_Motor2) ;
+void rotateLeft(char speed_Motor1, char speed_Motor2, char speed_Motor3) ;
+void rotateRight(char speed_Motor1, char speed_Motor2, char speed_Motor3) ;
 void motorStop();
 void chooseEncoder(int encoder_val, char encoderChosen);
 
